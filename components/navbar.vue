@@ -4,15 +4,7 @@
       <v-row class="d-block">
         <div class="d-flex justify-space-between">
           <v-row>
-            <v-col>
-              <nuxt-link to="/" class="link">
-                <img
-                  class="match-logo"
-                  src="../../assets/Photos/Match/match_logo.png"
-                  alt=""
-                />
-              </nuxt-link>
-            </v-col>
+            <v-col> </v-col>
             <v-col class="d-flex justify-end">
               <a @click="logOut()" class="loginlink"> Logout </a>
             </v-col>
@@ -45,10 +37,10 @@ export default {
       const data = await this.$axios.$post("/auth/logout");
       console.log("data", data);
       // if (data.message === "Successfully logged out") {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("name");
-        localStorage.removeItem("userData");
-        this.$router.push("/");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("name");
+      localStorage.removeItem("userData");
+      this.$router.push("/");
       // }
     },
   },

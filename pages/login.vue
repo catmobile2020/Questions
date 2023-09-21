@@ -1,17 +1,17 @@
 <template>
   <div class="homepage">
     <section class="">
-      <landingPage />
+      <Login />
     </section>
   </div>
 </template>
 
 <script>
-import landingPage from "../components/landingPage/landingPage.vue";
+import Login from "../components/login/login.vue";
 export default {
   name: "landingPages",
   components: {
-    landingPage,
+    Login,
   },
 };
 </script>

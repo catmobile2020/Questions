@@ -369,4 +369,22 @@ footer {
   font-size: 22px;
   font-weight: 900;
 }
+
 //End questions
+//start landingPage
+.landingPage {
+  background-image: url("@/assets/Photos/cute-heart-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: bottom;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+.btn-container {
+  text-align: center; /* Center the contents inside the container */
+}
+
+//End landingPage
