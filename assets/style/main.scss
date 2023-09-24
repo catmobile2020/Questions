@@ -191,12 +191,12 @@ footer {
   background-position: bottom;
 }
 
-.conOfForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+// .conOfForm {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+// }
 .conOfRegisterForm {
   height: 100vh;
 }
@@ -396,3 +396,69 @@ footer {
   height: 100vh;
 }
 //ENd userID
+
+//start Resgister Page
+.conOfRegister {
+  padding-inline: 12rem;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  margin: 0px 4rem;
+  padding: 1.4rem;
+  background: linear-gradient(to right, rgb(101, 45, 145), rgb(0, 168, 158));
+  border-radius: 1rem;
+}
+.HeadOfConOfRegister {
+  margin: 0px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: white;
+  text-align: center;
+}
+.TextOfConOfRegister {
+  margin: 1rem 0px;
+  max-width: 100%;
+  font-size: 1.125rem;
+  color: white;
+  text-align: justify;
+  max-width: 100%;
+  color: white;
+  text-align: center;
+  padding-inline: 5rem;
+}
+.patientDetails {
+  margin: 0px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  display: block;
+}
+.text-field-style {
+  border: 1px solid rgb(238, 238, 238);
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  color: rgb(17, 25, 39);
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 5px 22px,
+    rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px;
+
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 25px !important;
+}
+.Register-form {
+  background: #ffffffd9;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  border-radius: 30px;
+  padding: 50px !important;
+}
+.registerStartBtn {
+  padding: 20px 60px !important;
+  text-transform: capitalize !important;
+}
+//End Resgister Page
