@@ -1,14 +1,20 @@
 <template>
-    <div class="register">
-        <register />
-    </div>
+  <div class="Header">
+    <section class="">
+      <Header />
+    </section>
+    <section class="">
+      <register />
+    </section>
+  </div>
 </template>
 <script>
-import register from '../components/register.vue'
+import Header from "../components/header.vue";
+import register from "../components/register.vue";
 export default {
-    components: {
-        register
-    }
-    
-}
+  components: {
+    Header,
+    register,
+  },
+};
 </script>

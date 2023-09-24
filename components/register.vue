@@ -1,17 +1,5 @@
 <template>
   <div>
-    <div class="conOfRegister mb-3">
-      <h2 class="HeadOfConOfRegister">
-        National ASCVD Risk Assessment Calculator in KSA
-      </h2>
-      <h5 class="TextOfConOfRegister">
-        This interactive tool provides a user-friendly interface for robust
-        estimation of Atherosclerotic Cardiovascular Disease (ASCVD) risk in the
-        KSA population. It represents a collaborative initiative and unifies the
-        efforts to combat cardiovascular disease and improve patient outcomes in
-        the Kingdom.
-      </h5>
-    </div>
     <div class="conOfForm logIn">
       <v-container class="Register-form">
         <div>

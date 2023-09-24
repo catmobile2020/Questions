@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <v-form class="conOfForm logIn">
+    <v-form class="conOfForm">
       <v-container>
         <div>
           <v-container fluid>
