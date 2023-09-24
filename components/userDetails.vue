@@ -4,11 +4,11 @@
       <div class="userDetails">
         <v-row>
           <v-col cols="12" md="12" class="">
-            <p>Diabetic : Yes</p>
-            <p>Hypertensive : Yes</p>
-            <p>Dyslipidemic : No</p>
-            <p>Smoker : Yes</p>
-            <p>Family history of premature CAD : NO</p>
+            <p class="text-field-style">Diabetic : Yes</p>
+            <p class="text-field-style">Hypertensive : Yes</p>
+            <p class="text-field-style">Dyslipidemic : No</p>
+            <p class="text-field-style">Smoker : Yes</p>
+            <p class="text-field-style">Family history of premature CAD : NO</p>
           </v-col>
           <v-col md="6">
             <label>Pressure Scale</label>
