@@ -200,12 +200,15 @@ footer {
 .conOfRegisterForm {
   height: 100vh;
 }
-.submitBtn {
-  background-color: #febf2c !important;
+.LoginBtn {
   width: 100%;
   font-size: 20px !important;
   text-transform: capitalize !important;
-  color: #4343c3 !important;
+  padding: 25px !important;
+}
+.SubmitBtn {
+  font-size: 20px !important;
+  text-transform: capitalize !important;
   padding: 25px !important;
 }
 .startBtn {
@@ -380,11 +383,16 @@ footer {
   background-attachment: fixed;
   background-position: bottom;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center;
+  align-items: center;
 }
 .btn-container {
-  text-align: center; /* Center the contents inside the container */
+  text-align: center;
 }
 
 //End landingPage
+//start userID
+.userID {
+  height: 100vh;
+}
+//ENd userID

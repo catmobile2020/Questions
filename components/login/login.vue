@@ -4,7 +4,7 @@
       <v-container>
         <div>
           <v-container fluid>
-            <v-row class="d-flex justify-center">
+            <v-row class="d-flex justify-center align-center">
               <v-col md="6" cols="12" class="loginForm">
                 <v-col cols="12">
                   <v-text-field
@@ -29,8 +29,10 @@
                     solo
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12" class="d-flex justify-center">
-                  <v-btn class=""> Login </v-btn>
+                <v-col class="d-flex justify-center">
+                  <nuxt-link to="/userID" class="link">
+                    <v-btn class="primary LoginBtn"> Login </v-btn>
+                  </nuxt-link>
                 </v-col>
               </v-col>
             </v-row>
