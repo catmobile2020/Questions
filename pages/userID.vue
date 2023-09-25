@@ -12,6 +12,7 @@
 import Header from "../components/header.vue";
 import UserID from "../components/userID.vue";
 export default {
+  layout: "dashboard",
   components: {
     UserID,
     Header,

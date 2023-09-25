@@ -44,31 +44,31 @@
             <br />
             <div class="dashboard">
               <v-row>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-text-field outlined label="search by age" dense>
                   </v-text-field>
                 </v-col>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-select :items="genders" outlined label="Gender" dense>
                   </v-select>
                 </v-col>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-text-field outlined label="search by diabetic" dense>
                   </v-text-field>
                 </v-col>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-text-field outlined label="search by hypertensive" dense>
                   </v-text-field>
                 </v-col>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-text-field outlined label="search by Dyslipidemic" dense>
                   </v-text-field>
                 </v-col>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-text-field outlined label="search by smoker" dense>
                   </v-text-field>
                 </v-col>
-                <v-col md="4">
+                <v-col md="4" cols="12">
                   <v-text-field
                     outlined
                     label="search by risk assessment"
