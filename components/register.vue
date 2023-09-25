@@ -19,6 +19,7 @@
               required
               solo
               hide-details="auto"
+              v-model="formData.name"
             ></v-text-field>
           </v-col>
 
@@ -31,6 +32,7 @@
               required
               hide-details="auto"
               solo
+              v-model="formData.age"
             ></v-text-field>
           </v-col>
           <v-col md="6">
@@ -41,6 +43,7 @@
               required
               hide-details="auto"
               solo
+              v-model="formData.gender"
             ></v-select>
           </v-col>
           <v-col md="6">
@@ -52,6 +55,7 @@
               required
               hide-details="auto"
               solo
+              v-model="formData.national_id"
             ></v-text-field>
           </v-col>
           <v-col
@@ -61,13 +65,26 @@
             class="text-field-style"
           >
             <p>{{ item }}</p>
-            <v-radio-group mandatory row>
+            <v-radio-group mandatory row v-model="formData[item.toLowerCase()]">
               <v-radio label="Yes" value="yes"></v-radio>
-              <v-radio label="No" value="No"></v-radio>
+              <v-radio label="No" value="no"></v-radio>
+            </v-radio-group>
+          </v-col>
+          <v-col cols="12" class="text-field-style">
+            <p>Family history of premature CAD</p>
+            <v-radio-group
+              mandatory
+              row
+              v-model="formData.family_history_of_premature_CAD"
+            >
+              <v-radio label="Yes" value="yes"></v-radio>
+              <v-radio label="No" value="no"></v-radio>
             </v-radio-group>
           </v-col>
           <v-col cols="12" md="12" class="d-flex justify-center">
-            <v-btn class="primary registerStartBtn"> Start </v-btn>
+            <v-btn class="primary registerStartBtn" @click="save()">
+              Start
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -109,17 +126,27 @@ export default {
       successMessage: "",
       errorMessage: "",
       radios: null,
+      formData: {
+        name: "",
+        gender: "",
+        age: "",
+        national_id: "",
+        diabetic: "",
+        hypertensive: "",
+        dyslipidemia: "",
+        smoker: "",
+        family_history_of_premature_CAD: "",
+      },
       genders: ["male", "Female"],
-      questions: [
-        "Diabetic",
-        "Hypertensive",
-        "Dyslipidemic",
-        "Smoker",
-        "Family history of premature CAD",
-      ],
+      questions: ["Diabetic", "Hypertensive", "Dyslipidemia", "Smoker"],
     };
   },
+  methods: {
+    async save() {
+      const data = await this.$axios.$post("/step-one/store", this.formData);
+      console.log("this.data", this.data);
+    },
+  },
   components: {},
-  methods: {},
 };
 </script>
