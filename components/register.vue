@@ -87,6 +87,31 @@
             </v-btn>
           </v-col>
         </v-row>
+        <v-dialog v-model="showDialog" max-width="500">
+          <v-card>
+            <v-card-title class="d-flex justify-center">
+              <h3>{{ formData.name }}</h3>
+              <v-icon class="mark"> mdi-checkbox-marked-circle </v-icon>
+            </v-card-title>
+            <v-card-text>
+              <span class="thankYou">Thank You For Your Registration</span>
+              <v-col>
+                <h3>
+                  Your id is :
+                  <span class="userId"> {{ apiResponse.uuid }} </span>
+                </h3>
+              </v-col>
+              <v-col>
+                <h3>And QR Code is:</h3>
+                <img width="400" :src="apiResponse.qrCode" alt="" />
+              </v-col>
+            </v-card-text>
+            <v-card-actions class="pb-10">
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-container>
       <v-snackbar
         v-model="successSnackbar"
@@ -116,6 +141,8 @@
 export default {
   data() {
     return {
+      showDialog: false,
+      apiResponse: {},
       showPassword: false,
       email: "",
       password: "",
@@ -137,14 +164,19 @@ export default {
         smoker: "",
         family_history_of_premature_CAD: "",
       },
-      genders: ["male", "Female"],
+      genders: ["male", "female"],
       questions: ["Diabetic", "Hypertensive", "Dyslipidemia", "Smoker"],
     };
   },
   methods: {
     async save() {
-      const data = await this.$axios.$post("/step-one/store", this.formData);
-      console.log("this.data", this.data);
+      try {
+        const data = await this.$axios.$post("/step-one/store", this.formData);
+        this.apiResponse = data.data;
+        this.showDialog = true;
+      } catch (error) {
+        console.error("API Error:", error);
+      }
     },
   },
   components: {},
