@@ -45,8 +45,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
   ],
   axios: {
-    baseURL: "https://match.cat-sw.com/api/v1",
-    imgURL: "https://match.cat-sw.com/api/v1",
+    baseURL: "https://health-station.cat-sw.com/api/v1",
+    imgURL: "https://health-station.cat-sw.com/api/v1",
     // proxy: true
   },
   // i18n: {
