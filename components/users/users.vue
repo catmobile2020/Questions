@@ -305,9 +305,9 @@ export default {
     };
   },
 methods: {
-    // ... (your existing methods) ...
+  
     editUser(user) {
-      // Populate the edit dialog with the user data to be edited
+      
       this.selectedUserData = {
         name: user.name,
         email: user.email,
@@ -316,14 +316,14 @@ methods: {
         confirmPassword: "",
 
       };
-      this.EditUser = true; // Open the dialog
+      this.EditUser = true;
     },
     saveEditedUser() {
-      // Handle saving the edited user data to the database or perform any other required actions
+     
       console.log("Edited User Data:", this.selectedUserData);
-      this.EditUser = false; // Close the dialog
+      this.EditUser = false; 
     },
-    // ... (your existing methods) ...
+  
   },
 };
 </script>
