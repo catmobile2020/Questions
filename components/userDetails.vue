@@ -4,48 +4,79 @@
       <div class="userDetails">
         <v-row>
           <v-col cols="12" md="12" class="">
-            <p class="text-field-style">Diabetic : Yes</p>
-            <p class="text-field-style">Hypertensive : Yes</p>
-            <p class="text-field-style">Dyslipidemic : No</p>
-            <p class="text-field-style">Smoker : Yes</p>
-            <p class="text-field-style">Family history of premature CAD : NO</p>
+            <div class="text-field-style d-flex">
+              <p class="text-field-style">Name : {{ userData.name }}</p>
+              <p class="text-field-style">age : {{ userData.age }}</p>
+              <p class="text-field-style">gender : {{ userData.gender }}</p>
+              <p class="text-field-style">
+                national id : {{ userData.national_id }}
+              </p>
+            </div>
+            <p class="text-field-style">
+              Family history of premature CAD :
+              {{ userData.family_history_of_premature_CAD }}
+            </p>
+            <p class="text-field-style">
+              Diabetic :
+              {{ userData.diabetic }}
+            </p>
+            <p class="text-field-style">
+              Hypertensive :
+              {{ userData.hypertensive }}
+            </p>
+            <p class="text-field-style">
+              Dyslipidemia :
+              {{ userData.dyslipidemia }}
+            </p>
+            <p class="text-field-style">
+              Smoker :
+              {{ userData.smoker }}
+            </p>
           </v-col>
           <v-col md="6">
-            <label>Pressure Scale</label>
+            <label>hpa1c</label>
             <v-text-field
               outlined
               class="formInput"
               placeholder="Number"
-              type="number"
               required
               hide-details="auto"
               solo
-              v-model="pressureScale"
+              v-model="formData.hpa1c"
             ></v-text-field>
           </v-col>
           <v-col md="6">
-            <label>Blood Sugar Level</label>
+            <label>Lipid Test</label>
             <v-text-field
               outlined
               class="formInput"
               placeholder="Number"
-              type="number"
               required
               hide-details="auto"
               solo
-              v-model="bloodSugarLevel"
+              v-model="formData.lipid_test"
             ></v-text-field>
           </v-col>
         </v-row>
       </div>
       <v-col md="12" class="d-flex justify-center">
-        <v-btn
-          class="primary SubmitBtn"
-          :disabled="!pressureScale || !bloodSugarLevel"
-        >
-          Submit
-        </v-btn>
+        <v-btn class="primary SubmitBtn" @click="submit()"> Submit </v-btn>
       </v-col>
+      <v-dialog v-model="showDialog" max-width="500">
+        <v-card>
+          <v-card-title class="d-flex justify-center">
+            <h3>{{ formData.name }}</h3>
+            <v-icon class="mark"> mdi-checkbox-marked-circle </v-icon>
+          </v-card-title>
+          <v-card-text>
+            <span class="thankYou">Thank You For Your Registration</span>
+          </v-card-text>
+          <v-card-actions class="pb-10">
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-container>
   </div>
 </template>
@@ -54,9 +85,41 @@
 export default {
   data() {
     return {
+      showDialog: false,
       pressureScale: null,
       bloodSugarLevel: null,
+      userData: {},
+      formData: {
+        uuid: this.$route.query.uuid,
+        lipid_test: "",
+        hpa1c: "",
+      },
     };
+  },
+  methods: {
+    async submit() {
+      try {
+        const data = await this.$axios.$post("/step-two/update", this.formData);
+        this.showDialog = true;
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    },
+    async getData() {
+      try {
+        const data = await this.$axios.$get(
+          `/step-two/show/${this.formData.uuid}`
+        );
+
+        this.userData = data.data;
+        console.error("userData:", this.userData);
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

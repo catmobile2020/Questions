@@ -12,18 +12,21 @@
                       outlined
                       class="formInput"
                       placeholder="user id"
-                      type="number"
                       required
                       hide-details="auto"
                       solo
-                      v-model="userID"
+                      v-model="formData.uuid"
                     ></v-text-field>
                   </v-col>
                   <v-col md="6">
-                    <nuxt-link to="/userDetails" class="link">
-                      <v-btn class="primary" :disabled="!userID">
-                        Search
-                      </v-btn>
+                    <nuxt-link
+                      :to="{
+                        name: 'userDetails',
+                        query: { uuid: formData.uuid },
+                      }"
+                      class="link"
+                    >
+                      <v-btn class="primary"> Search </v-btn>
                     </nuxt-link>
                   </v-col>
                 </v-row>
@@ -40,7 +43,11 @@ export default {
   data() {
     return {
       userID: null,
+      formData: {
+        uuid: "",
+      },
     };
   },
+  methods: {},
 };
 </script>
