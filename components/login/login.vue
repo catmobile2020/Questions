@@ -8,6 +8,7 @@
               <v-col md="6" cols="12" class="loginForm">
                 <v-col cols="12">
                   <v-text-field
+                    v-model="form.email"
                     outlined
                     placeholder="Email Address"
                     required
@@ -18,6 +19,7 @@
 
                 <v-col cols="12 pb-2">
                   <v-text-field
+                    v-model="form.password"
                     outlined
                     class="formInput"
                     placeholder="Password"
@@ -30,9 +32,9 @@
                   ></v-text-field>
                 </v-col>
                 <v-col class="d-flex justify-center">
-                  <nuxt-link to="/userID" class="link">
-                    <v-btn class="primary LoginBtn"> Login </v-btn>
-                  </nuxt-link>
+                  <!-- <nuxt-link to="/userID" class="link"> -->
+                    <v-btn class="primary LoginBtn" @click="doLogin()"> Login </v-btn>
+                  <!-- </nuxt-link> -->
                 </v-col>
               </v-col>
             </v-row>
@@ -68,8 +70,11 @@ export default {
   data() {
     return {
       showPassword: false,
-      email: "",
-      password: "",
+      form:{
+        email: "admin@admin.com",
+        password: "12345678",
+      },
+
       Me: {},
       successSnackbar: false,
       errorSnackbar: false,
@@ -79,6 +84,24 @@ export default {
     };
   },
   components: {},
-  methods: {},
+  methods: {
+    async doLogin() {
+      try {
+        const data = await this.$axios.$post("/auth/login", this.form);
+        console.log('data', data)
+        if(data.access_token) {
+          localStorage.setItem('token', data.access_token)
+          localStorage.setItem('userData', data.me)
+          if(data.me.type === 'Admin') {
+            this.$router.push('/dashboard')
+          } else {
+            this.$router.push('/userID')
+          }
+        }
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    }
+  },
 };
 </script>

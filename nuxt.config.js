@@ -49,20 +49,6 @@ export default {
     imgURL: "https://health-station.cat-sw.com/api/v1",
     // proxy: true
   },
-  // i18n: {
-  //   // parsePages: false,
-  //   locales: [
-  //     { code: "en", iso: "en-US", file: "en.js" },
-  //     { code: "ar", iso: "ar-EG", file: "ar.js" },
-  //   ],
-  //   defaultLocale: "en",
-  //   strategy: "prefix",
-  //   lazy: true,
-  //   langDir: "locales/",
-  //   vueI18n: {
-  //     fallbackLocale: "en",
-  //   },
-  // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
