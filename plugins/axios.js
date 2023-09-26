@@ -12,9 +12,9 @@ export default function ({
   $axios.onRequest((config) => {
     if (process.browser === true) {
       console.log("testtt", config);
-      if (localStorage.getItem("accessToken")) {
+      if (localStorage.getItem("token")) {
         config.headers.Authorization =
-          localStorage.getItem("accessToken");
+          localStorage.getItem("token");
       }
     }
 

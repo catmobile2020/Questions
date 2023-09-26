@@ -90,7 +90,7 @@ export default {
         const data = await this.$axios.$post("/auth/login", this.form);
         console.log('data', data)
         if(data.access_token) {
-          localStorage.setItem('token', data.access_token)
+          localStorage.setItem('token', data.token_type + data.access_token)
           localStorage.setItem('userData', data.me)
           if(data.me.type === 'Admin') {
             this.$router.push('/dashboard')

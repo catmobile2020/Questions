@@ -195,6 +195,16 @@ export default {
       ],
     };
   },
+  created () {
+    this.getData()
+  },
+  methods: {
+    async  getData() {
+      const currentDay = new Date().toISOString().slice(0, 10);
+      const data = await this.$axios.$get(`/admin/count_attendees?ber_day=${currentDay}`);
+      console.log('data', data)
+    }
+  }
 };
 </script>
 <style>
