@@ -88,7 +88,9 @@
           </v-card-text>
           <v-card-actions class="pb-10">
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+            <nuxt-link to="userID" class="">
+              <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+            </nuxt-link>
           </v-card-actions>
         </v-card>
       </v-dialog>

@@ -33,7 +33,9 @@
                 </v-col>
                 <v-col class="d-flex justify-center">
                   <!-- <nuxt-link to="/userID" class="link"> -->
-                    <v-btn class="primary LoginBtn" @click="doLogin()"> Login </v-btn>
+                  <v-btn class="primary LoginBtn" @click="doLogin()">
+                    Login
+                  </v-btn>
                   <!-- </nuxt-link> -->
                 </v-col>
               </v-col>
@@ -70,7 +72,7 @@ export default {
   data() {
     return {
       showPassword: false,
-      form:{
+      form: {
         email: "admin@admin.com",
         password: "12345678",
       },
@@ -88,20 +90,21 @@ export default {
     async doLogin() {
       try {
         const data = await this.$axios.$post("/auth/login", this.form);
-        console.log('data', data)
-        if(data.access_token) {
-          localStorage.setItem('token', data.token_type + data.access_token)
-          localStorage.setItem('userData', data.me)
-          if(data.me.type === 'Admin') {
-            this.$router.push('/dashboard')
+        console.log("data", data);
+        if (data.access_token) {
+          localStorage.setItem("token", data.token_type + data.access_token);
+
+          localStorage.setItem("userData", JSON.stringify(data.me));
+          if (data.me.type === "Admin") {
+            this.$router.push("/dashboard");
           } else {
-            this.$router.push('/userID')
+            this.$router.push("/userID");
           }
         }
       } catch (error) {
         console.error("API Error:", error);
       }
-    }
+    },
   },
 };
 </script>

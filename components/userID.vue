@@ -18,10 +18,36 @@
                       v-model="formData.uuid"
                     ></v-text-field>
                   </v-col>
-                  <v-col md="6">
+                  <v-col md="6" v-if="userData && userData.type_id">
+                    <!-- Conditionally render the nuxt-link based on type_id -->
                     <nuxt-link
+                      v-if="userData.type_id === 2 && userData.step === 'one'"
                       :to="{
                         name: 'userDetails',
+                        query: { uuid: formData.uuid },
+                      }"
+                      class="link"
+                    >
+                      <v-btn class="primary"> Search </v-btn>
+                    </nuxt-link>
+                    <nuxt-link
+                      v-else-if="
+                        userData.type_id === 2 && userData.step === 'two'
+                      "
+                      :to="{
+                        name: 'userDetailsTwo',
+                        query: { uuid: formData.uuid },
+                      }"
+                      class="link"
+                    >
+                      <v-btn class="primary"> Search </v-btn>
+                    </nuxt-link>
+                    <nuxt-link
+                      v-else-if="
+                        userData.type_id === 2 && userData.step === 'three'
+                      "
+                      :to="{
+                        name: 'userDetailsThree',
                         query: { uuid: formData.uuid },
                       }"
                       class="link"
@@ -48,6 +74,20 @@ export default {
       },
     };
   },
-  methods: {},
+  methods: {
+    async getData() {
+      // Retrieve the stored data from local storage
+      const storedUserData = localStorage.getItem("userData");
+
+      if (storedUserData) {
+        // Parse the JSON string back to an object
+        this.userData = JSON.parse(storedUserData);
+        console.log("this.userData", this.userData);
+      }
+    },
+  },
+  created() {
+    this.getData();
+  },
 };
 </script>
