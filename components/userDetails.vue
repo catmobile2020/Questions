@@ -4,34 +4,49 @@
       <div class="userDetails">
         <v-row>
           <v-col cols="12" md="12" class="">
-            <div class="text-field-style d-flex">
-              <p class="text-field-style">Name : {{ userData.name }}</p>
-              <p class="text-field-style">age : {{ userData.age }}</p>
-              <p class="text-field-style">gender : {{ userData.gender }}</p>
-              <p class="text-field-style">
-                national id : {{ userData.national_id }}
-              </p>
+            <div class="text-field-style">
+              <h3>Personal Information</h3>
+              <div class="d-flex">
+                <p class="text-field-style">Name : {{ userData.name }}</p>
+                <p class="text-field-style">age : {{ userData.age }}</p>
+                <p class="text-field-style">gender : {{ userData.gender }}</p>
+                <p class="text-field-style">
+                  national id : {{ userData.national_id }}
+                </p>
+              </div>
             </div>
-            <p class="text-field-style">
-              Family history of premature CAD :
-              {{ userData.family_history_of_premature_CAD }}
-            </p>
-            <p class="text-field-style">
-              Diabetic :
-              {{ userData.diabetic }}
-            </p>
-            <p class="text-field-style">
-              Hypertensive :
-              {{ userData.hypertensive }}
-            </p>
-            <p class="text-field-style">
-              Dyslipidemia :
-              {{ userData.dyslipidemia }}
-            </p>
-            <p class="text-field-style">
-              Smoker :
-              {{ userData.smoker }}
-            </p>
+            <v-row class="d-flex">
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  Family history of premature CAD :
+                  {{ userData.family_history_of_premature_CAD }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  Diabetic :
+                  {{ userData.diabetic }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  Hypertensive :
+                  {{ userData.hypertensive }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  Dyslipidemia :
+                  {{ userData.dyslipidemia }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  Smoker :
+                  {{ userData.smoker }}
+                </p>
+              </v-col>
+            </v-row>
           </v-col>
           <v-col md="6">
             <label>hpa1c</label>
