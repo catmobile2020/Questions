@@ -13,7 +13,10 @@
               <v-data-table
                 :headers="headers"
                 :items="data"
-                :items-per-page="5"
+                :items-per-page="15"
+                :server-items-length="totalItems"
+                :page-count="numberOfPages"
+                :options.sync="options"
                 class="elevation-1"
               >
                 <template #[`item.Actions`]="{ item }">
@@ -254,6 +257,9 @@ export default {
       AddUser: false,
       EditUser: false,
       DeleteUser: false,
+      totalItems: null,
+      numberOfPages: null,
+      options: {},
          selectedRole: "", 
       selectedEmployeeRole: "", 
        selectedUserData: {
@@ -277,35 +283,25 @@ export default {
         { text: "Actions", value: "Actions" },
       ],
   
-      data: [
-        {
-          ID: 1,
-          name: "Admin",
-          email: "Admin@admin.com",
-          role: "Admin",
-      
-        },
-        {
-          ID: 2,
-          name: "Ahmed",
-          email: "Ahmed@admin.com",
-          role: "employee",
-     
-        },
-        {
-          ID: 3,
-          name: "Hossam",
-          email: "Hossam@admin.com",
-          role: "User",
-    
-        },
-        
-     
-      ],
+      data: [],
     };
   },
+  watch: {
+      options: {
+        handler () {
+          this.getUsers()
+        },
+      },
+    },
 methods: {
-  
+  async getUsers() {
+      const { page, itemsPerPage } = this.options
+      const pageNumber = page
+      const data = await this.$axios.$get(`/admin/users?page${pageNumber}`);
+      this.data = data.data
+      this.totalItems = data.meta.total
+      this.numberOfPages = data.meta.last_page
+    },
     editUser(user) {
       
       this.selectedUserData = {
