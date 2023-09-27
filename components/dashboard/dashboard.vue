@@ -296,7 +296,7 @@ export default {
         },
         { text: "Gender", value: "gender" },
         { text: "Age", value: "age" },
-        { text: "ID", value: "uuid" },
+        { text: "UUID", value: "uuid" },
         { text: "Actions", value: "Actions" },
       ],
       genders: ["Male", "Female"],
