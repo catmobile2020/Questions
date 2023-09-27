@@ -13,8 +13,7 @@ export default function ({
     if (process.browser === true) {
       console.log("testtt", config);
       if (localStorage.getItem("token")) {
-        config.headers.Authorization =
-          localStorage.getItem("token");
+        config.headers.Authorization = localStorage.getItem("token");
       }
     }
 
@@ -25,6 +24,7 @@ export default function ({
   });
 
   $axios.onError((error) => {
+    // console.log("error.response", error.response);
     return error.response;
   });
   $axios.onResponse((response) => {

@@ -161,7 +161,7 @@
             </v-col>
 
             
-            <v-col v-if="selectedRole === 'Employee'">
+            <v-col v-if="selectedUserData.type_id === 2">
               <label>Employee Role</label>
               <v-radio-group v-model="selectedEmployeeRole">
                 <v-radio label="Employee 1" value="Employee 1"></v-radio>
@@ -192,7 +192,7 @@
               </v-btn>
               <v-btn
                 class="primary"
-         
+         @click="saveEditedUser()"
               >
                 Save
               </v-btn>
@@ -236,13 +236,27 @@
           </v-card>
         </v-dialog>
       </div>
+            <v-snackbar
+          v-model="errorSnackbar"
+          color="red"
+          shaped
+          bottom
+          right
+          :timeout="timeout"
+        >
+          {{ errorMessage }}
+        </v-snackbar>
     </v-container>
   </v-form>
 </template>
 <script>
 export default {
   data() {
+    
     return {
+      errorSnackbar: false,
+      timeout: 3000,
+      errorMessage: "",
       Roles: [
         {
         id:1,
@@ -254,6 +268,7 @@ export default {
         },
     
        ], 
+           selectedUserId: null,
       validRule: [(v) => !!v || "Filed Is Required"],
       showPassword: false,
       AddUser: false,
@@ -307,35 +322,62 @@ methods: {
       this.numberOfPages = data.meta.last_page
     },
     editUser(user) {
-      
+    
+  this.selectedUserId = user.id;
+
       this.selectedUserData = {
         name: user.name,
         email: user.email,
-        type_id: this.selectedRole,
+        type_id: this.selectedRole,  
         password: "",
-      
-
       };
       this.EditUser = true;
     },
-    saveEditedUser() {
-     
-      console.log("Edited User Data:", this.selectedUserData);
-      this.EditUser = false; 
-    },
-    async addUser() {
-      try {
-        const data = await this.$axios.$post("/admin/users", this.selectedUserData);
-        this.apiResponse = data.data;
-        this.AddUser = false;
-        this.getUsers();
-      } catch (error) {
-        console.error("API Error:", error);
+async saveEditedUser() {
+  try {
+    const id = this.selectedUserId; 
+    const data = await this.$axios.$put(`/admin/users/${id}`, this.selectedUserData);
+    this.EditUser = false;
+    this.getUsers(); 
+  } catch (error) {
+    console.error("API Error:", error);
+  }
+},
+   async addUser() {
+  try {
+    const data = await this.$axios.$post("/admin/users", this.selectedUserData);
+    this.apiResponse = data.data;
+    this.getUsers();
+       this.AddUser = false;
+  } catch (error) {
+    console.error("Error caught:", error);
+
+    if (error.response && error.response.data) {
+      const errorData = error.response.data.error;
+      console.log("errorData:", errorData);
+
+      const errorMessages = [];
+
+      for (const field in errorData) {
+        if (Array.isArray(errorData[field])) {
+          errorData[field].forEach((message) => {
+            errorMessages.push(message);
+          });
+        }
       }
-    },
+      this.errorSnackbar = true;
+
+      this.errorMessage = errorMessages.join("\n");
+      console.error("Registration failed:", this.errorMessage);
+    } else {
+      console.error("Registration failed:", error.message);
+      this.errorMessage = "Registration failed. Please try again later.";
+    }
+  }
+},
   async deleteUser() {
     try {
-      const id = this.userToDeleteId; 
+      const id = this.userId; 
       const data = await this.$axios.$delete(`/admin/users/${id}`);
       this.DeleteUser = false;
       this.getUsers();
@@ -344,9 +386,10 @@ methods: {
     }
   },
    showDeleteConfirmation(id) {
-    this.userToDeleteId = id;
+    this.userId = id;
     this.DeleteUser = true;
   },
+
   },
 };
 </script>
