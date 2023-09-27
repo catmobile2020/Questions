@@ -23,9 +23,9 @@
                   <v-btn icon elevation="0" @click="editUser(item)" color="primary">
                     <v-icon>mdi-pencil</v-icon>
                   </v-btn>
-                  <v-btn icon elevation="0" @click="DeleteUser = true" color="primary">
+                  <v-btn icon elevation="0" @click="showDeleteConfirmation(item.id)" color="primary">
                     <v-icon>mdi-delete</v-icon>
-                  </v-btn>
+                 </v-btn>
                 </template>
               </v-data-table>
             </div>
@@ -46,6 +46,7 @@
                 placeholder="Name"
                 solo
                 outlined
+                v-model="selectedUserData.name"
                 :rules="validRule"
               ></v-text-field>
             </v-col>
@@ -55,22 +56,26 @@
                 placeholder="Email"
                 solo
                 outlined
+                v-model="selectedUserData.email"
                 :rules="validRule"
               ></v-text-field>
             </v-col>
             <v-col>
-              <v-select :items="Roles" outlined label="Role" dense v-model="selectedRole">
+              <v-select   
+                item-text="name" 
+                item-value="id" 
+                :items="Roles"
+                outlined label="Role"
+                dense 
+                v-model="selectedUserData.type_id">
               </v-select>
-            
             </v-col>
-
-            
-            <v-col v-if="selectedRole === 'Employee'">
+            <v-col v-if="selectedUserData.type_id === 2">
               <label>Employee Role</label>
-              <v-radio-group v-model="selectedEmployeeRole">
-                <v-radio label="Employee 1" value="Employee 1"></v-radio>
-                <v-radio label="Employee 2" value="Employee 2"></v-radio>
-                <v-radio label="Employee 3" value="Employee 3"></v-radio>
+              <v-radio-group v-model="selectedUserData.step">
+                <v-radio label="Employee 1" value="one"></v-radio>
+                <v-radio label="Employee 2" value="two"></v-radio>
+                <v-radio label="Employee 3" value="three"></v-radio>
               </v-radio-group>
             </v-col>
 
@@ -81,19 +86,11 @@
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="showPassword ? 'text' : 'password'"
                 @click:append="showPassword = !showPassword"
+                v-model="selectedUserData.password"
                 :rules="validRule"
               ></v-text-field>
             </v-col>
-            <v-col>
-              <label>Confirm Password</label>
-              <v-text-field
-                solo
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                @click:append="showPassword = !showPassword"
-                :rules="validRule"
-              ></v-text-field>
-            </v-col>
+  
           </v-container>
         </v-card-text>
 
@@ -102,7 +99,7 @@
           <v-btn class="primary" tile @click="AddUser = false">
             Cancel
           </v-btn>
-          <v-btn class="primary" @click="saveUser">
+          <v-btn class="primary" @click="addUser()">
             Save
           </v-btn>
         </v-card-actions>
@@ -149,7 +146,16 @@
                     ></v-text-field>
                   </v-col>
               <v-col>
-              <v-select :items="Roles" outlined label="Role" dense v-model="selectedRole">
+              <v-select
+               v-model="selectedUserData.type_id"
+               :items="Roles"
+                outlined
+                label="Role"               
+                dense 
+             
+                item-text="name" 
+                item-value="id" 
+                >
               </v-select>
             
             </v-col>
@@ -167,28 +173,14 @@
                <v-col>
                      <label >Password</label>
               <v-text-field
-         
           solo
-          
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPassword ? 'text' : 'password'"
           @click:append="showPassword = !showPassword"
+           v-model="selectedUserData.password"
           :rules="validRule"
         ></v-text-field>
             </v-col>
-            
-                  <v-col>
-                    <label >Confirm Password</label>
-                   <v-text-field
-          solo       
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-          :rules="validRule"
-        ></v-text-field>
-                  </v-col>
-           
-          
                 </v-row>
               </v-container>
             </v-card-text>
@@ -233,7 +225,7 @@
 
             <v-card-actions class="pb-10">
               <v-spacer></v-spacer>
-              <v-btn class="primary" tile @click="DeleteUser = false">
+              <v-btn class="primary" tile @click="deleteUser(id)">
                 Yes
               </v-btn>
               <v-btn class="primary" tile @click="DeleteUser = false">
@@ -251,7 +243,17 @@
 export default {
   data() {
     return {
-      Roles: ["Admin", "Employee" ,"User"], 
+      Roles: [
+        {
+        id:1,
+        name:"Admin"
+        },
+        {
+        id:2,
+        name:"Employee"
+        },
+    
+       ], 
       validRule: [(v) => !!v || "Filed Is Required"],
       showPassword: false,
       AddUser: false,
@@ -266,11 +268,11 @@ export default {
         name: "",
         email: "",
         password: "",
-        confirmPassword: "",
-        role: this.selectedRole,
+        step: "",
+        type_id: this.selectedRole,
       },
       headers: [
-           { text: "ID", value: "ID" },
+           { text: "ID", value: "id" },
         {
           text: "Name",
           align: "start",
@@ -278,12 +280,13 @@ export default {
           value: "name",
         },
         { text: "Email", value: "email" },
-        { text: "Role", value: "role" },
+        { text: "Role", value: "type" },
        
         { text: "Actions", value: "Actions" },
       ],
   
       data: [],
+
     };
   },
   watch: {
@@ -299,6 +302,7 @@ methods: {
       const pageNumber = page
       const data = await this.$axios.$get(`/admin/users?page${pageNumber}`);
       this.data = data.data
+      console.log("data" ,this.data)
       this.totalItems = data.meta.total
       this.numberOfPages = data.meta.last_page
     },
@@ -307,9 +311,9 @@ methods: {
       this.selectedUserData = {
         name: user.name,
         email: user.email,
-        role: this.selectedRole,
+        type_id: this.selectedRole,
         password: "",
-        confirmPassword: "",
+      
 
       };
       this.EditUser = true;
@@ -319,7 +323,30 @@ methods: {
       console.log("Edited User Data:", this.selectedUserData);
       this.EditUser = false; 
     },
-  
+    async addUser() {
+      try {
+        const data = await this.$axios.$post("/admin/users", this.selectedUserData);
+        this.apiResponse = data.data;
+        this.AddUser = false;
+        this.getUsers();
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    },
+  async deleteUser() {
+    try {
+      const id = this.userToDeleteId; 
+      const data = await this.$axios.$delete(`/admin/users/${id}`);
+      this.DeleteUser = false;
+      this.getUsers();
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+  },
+   showDeleteConfirmation(id) {
+    this.userToDeleteId = id;
+    this.DeleteUser = true;
+  },
   },
 };
 </script>
