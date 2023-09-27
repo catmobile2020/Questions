@@ -64,6 +64,7 @@
               hide-details="auto"
               solo
               v-model="formData.hpa1c"
+              :rules="validRule"
             ></v-text-field>
           </v-col>
           <v-col md="6">
@@ -76,12 +77,19 @@
               hide-details="auto"
               solo
               v-model="formData.lipid_test"
+              :rules="validRule"
             ></v-text-field>
           </v-col>
         </v-row>
       </div>
       <v-col md="12" class="d-flex justify-center">
-        <v-btn class="primary SubmitBtn" @click="submit()"> Submit </v-btn>
+        <v-btn
+          class="primary SubmitBtn"
+          :disabled="!isFormValid"
+          @click="submit()"
+        >
+          Submit
+        </v-btn>
       </v-col>
       <v-dialog v-model="showDialog" max-width="500">
         <v-card>
@@ -108,6 +116,7 @@
 export default {
   data() {
     return {
+      validRule: [(v) => !!v || "Filed is Required"],
       showDialog: false,
       pressureScale: null,
       bloodSugarLevel: null,
@@ -143,6 +152,11 @@ export default {
   },
   created() {
     this.getData();
+  },
+  computed: {
+    isFormValid() {
+      return this.formData.lipid_test && this.formData.hpa1c;
+    },
   },
 };
 </script>

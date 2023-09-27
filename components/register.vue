@@ -20,6 +20,7 @@
               solo
               hide-details="auto"
               v-model="formData.name"
+              :rules="validRule"
             ></v-text-field>
           </v-col>
 
@@ -33,6 +34,7 @@
               hide-details="auto"
               solo
               v-model="formData.age"
+              :rules="validRule"
             ></v-text-field>
           </v-col>
           <v-col md="6">
@@ -44,6 +46,7 @@
               hide-details="auto"
               solo
               v-model="formData.gender"
+              :rules="validRule"
             ></v-select>
           </v-col>
           <v-col md="6">
@@ -56,6 +59,7 @@
               hide-details="auto"
               solo
               v-model="formData.national_id"
+              :rules="validRule"
             ></v-text-field>
           </v-col>
           <v-col
@@ -65,7 +69,11 @@
             class="text-field-style"
           >
             <p>{{ item }}</p>
-            <v-radio-group row v-model="formData[item.toLowerCase()]">
+            <v-radio-group
+              row
+              :rules="validRule"
+              v-model="formData[item.toLowerCase()]"
+            >
               <v-radio label="Yes" value="yes"></v-radio>
               <v-radio label="No" value="no"></v-radio>
             </v-radio-group>
@@ -81,7 +89,11 @@
             </v-radio-group>
           </v-col>
           <v-col cols="12" md="12" class="d-flex justify-center">
-            <v-btn class="primary registerStartBtn" @click="save()">
+            <v-btn
+              class="primary registerStartBtn"
+              :disabled="!isFormValid"
+              @click="save()"
+            >
               Start
             </v-btn>
           </v-col>
@@ -142,6 +154,7 @@
 export default {
   data() {
     return {
+      validRule: [(v) => !!v || "Filed is Required"],
       showDialog: false,
       apiResponse: {},
       showPassword: false,
@@ -180,6 +193,20 @@ export default {
       }
     },
   },
-  components: {},
+  computed: {
+    isFormValid() {
+      return (
+        this.formData.name &&
+        this.formData.gender &&
+        this.formData.age &&
+        this.formData.national_id &&
+        this.formData.diabetic &&
+        this.formData.hypertensive &&
+        this.formData.dyslipidemia &&
+        this.formData.smoker &&
+        this.formData.family_history_of_premature_CAD
+      );
+    },
+  },
 };
 </script>

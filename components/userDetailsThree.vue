@@ -111,12 +111,19 @@
               hide-details="auto"
               solo
               v-model="formData.risk_assessment"
+              :rules="validRule"
             ></v-textarea>
           </v-col>
         </v-row>
       </div>
       <v-col md="12" class="d-flex justify-center">
-        <v-btn class="primary SubmitBtn" @click="submit()"> Submit </v-btn>
+        <v-btn
+          class="primary SubmitBtn"
+          :disabled="!isFormValid"
+          @click="submit()"
+        >
+          Submit
+        </v-btn>
       </v-col>
       <v-dialog v-model="showDialog" max-width="500">
         <v-card>
@@ -143,6 +150,7 @@
 export default {
   data() {
     return {
+      validRule: [(v) => !!v || "Filed is Required"],
       showDialog: false,
       pressureScale: null,
       bloodSugarLevel: null,
@@ -152,6 +160,11 @@ export default {
         risk_assessment: "",
       },
     };
+  },
+  computed: {
+    isFormValid() {
+      return this.formData.risk_assessment;
+    },
   },
   methods: {
     async submit() {

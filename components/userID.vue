@@ -16,6 +16,7 @@
                       hide-details="auto"
                       solo
                       v-model="formData.uuid"
+                      :rules="validRule"
                     ></v-text-field>
                   </v-col>
                   <v-col md="6" v-if="userData && userData.type_id">
@@ -28,7 +29,9 @@
                       }"
                       class="link"
                     >
-                      <v-btn class="primary"> Search </v-btn>
+                      <v-btn class="primary" :disabled="!isFormValid">
+                        Search
+                      </v-btn>
                     </nuxt-link>
                     <nuxt-link
                       v-else-if="
@@ -40,7 +43,9 @@
                       }"
                       class="link"
                     >
-                      <v-btn class="primary"> Search </v-btn>
+                      <v-btn class="primary" :disabled="!isFormValid">
+                        Search
+                      </v-btn>
                     </nuxt-link>
                     <nuxt-link
                       v-else-if="
@@ -52,7 +57,9 @@
                       }"
                       class="link"
                     >
-                      <v-btn class="primary"> Search </v-btn>
+                      <v-btn class="primary" :disabled="!isFormValid">
+                        Search
+                      </v-btn>
                     </nuxt-link>
                   </v-col>
                 </v-row>
@@ -68,6 +75,7 @@
 export default {
   data() {
     return {
+      validRule: [(v) => !!v || "Filed is Required"],
       userID: null,
       formData: {
         uuid: "",
@@ -88,6 +96,11 @@ export default {
   },
   created() {
     this.getData();
+  },
+  computed: {
+    isFormValid() {
+      return this.formData.uuid;
+    },
   },
 };
 </script>

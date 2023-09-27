@@ -315,6 +315,7 @@ export default {
       },
     },
   },
+
   methods: {
     showDetails(item) {
       this.info = item;

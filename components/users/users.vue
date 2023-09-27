@@ -67,6 +67,7 @@
                 :items="Roles"
                 outlined label="Role"
                 dense 
+                        :rules="validRule"
                 v-model="selectedUserData.type_id">
               </v-select>
             </v-col>
@@ -99,7 +100,7 @@
           <v-btn class="primary" tile @click="AddUser = false">
             Cancel
           </v-btn>
-          <v-btn class="primary" @click="addUser()">
+          <v-btn class="primary"  :disabled="!isFormValid" @click="addUser()">
             Save
           </v-btn>
         </v-card-actions>
@@ -152,7 +153,7 @@
                 outlined
                 label="Role"               
                 dense 
-             
+              :rules="validRule"
                 item-text="name" 
                 item-value="id" 
                 >
@@ -254,6 +255,7 @@ export default {
   data() {
     
     return {
+       validRule: [(v) => !!v || "Filed is Required"],
       errorSnackbar: false,
       timeout: 3000,
       errorMessage: "",
@@ -303,6 +305,16 @@ export default {
       data: [],
 
     };
+  },
+    computed: {
+    isFormValid() {
+      return (
+        this.selectedUserData.name &&
+        this.selectedUserData.email &&
+        this.selectedUserData.password &&
+        this.selectedUserData.step 
+      );
+    },
   },
   watch: {
       options: {
