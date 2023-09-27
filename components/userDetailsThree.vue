@@ -3,6 +3,12 @@
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
+          <v-col class="d-flex justify-center">
+            <div class="step">
+              Step
+              <span class="stepNum"> 3 </span>
+            </div>
+          </v-col>
           <v-col cols="12" md="12" class="">
             <div class="text-field-style">
               <h3>Personal Information</h3>

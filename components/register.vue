@@ -65,7 +65,7 @@
             class="text-field-style"
           >
             <p>{{ item }}</p>
-            <v-radio-group mandatory row v-model="formData[item.toLowerCase()]">
+            <v-radio-group row v-model="formData[item.toLowerCase()]">
               <v-radio label="Yes" value="yes"></v-radio>
               <v-radio label="No" value="no"></v-radio>
             </v-radio-group>
@@ -73,7 +73,6 @@
           <v-col cols="12" class="text-field-style">
             <p>Family history of premature CAD</p>
             <v-radio-group
-              mandatory
               row
               v-model="formData.family_history_of_premature_CAD"
             >
@@ -108,7 +107,9 @@
             </v-card-text>
             <v-card-actions class="pb-10">
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+              <nuxt-link to="/" class="">
+                <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+              </nuxt-link>
             </v-card-actions>
           </v-card>
         </v-dialog>

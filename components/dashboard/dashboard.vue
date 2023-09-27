@@ -154,6 +154,7 @@
                 :headers="headers"
                 :items="data"
                 :items-per-page="15"
+                hide-actions
                 :server-items-length="totalItems"
                 :page-count="numberOfPages"
                 :options.sync="options"
