@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="image">
+      <v-col class="logOutBtn" cols="2">
+        <v-btn class="primary LoginBtn" @click="logOut()"> LogOut </v-btn>
+      </v-col>
       <!-- <img class="image" src="@/assets/Photos/header copy.jpeg" alt="logo" /> -->
       <div class="conOfHeader mb-3">
         <h2 class="HeadOfConOfHeader">
@@ -25,7 +28,18 @@ export default {
   },
   mounted() {},
 
-  methods: {},
+  methods: {
+    async logOut() {
+      const data = await this.$axios.$post("/auth/logout");
+      console.log("data", data);
+      // if (data.message === "Successfully logged out") {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("name");
+      localStorage.removeItem("userData");
+      this.$router.push("/");
+      // }
+    },
+  },
 };
 </script>
 <style></style>
