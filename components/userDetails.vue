@@ -63,7 +63,7 @@
             </v-row>
           </v-col>
 
-          <v-col md="6">
+          <v-col md="6" cols="6">
             <label>hpa1c</label>
             <v-text-field
               outlined
@@ -76,7 +76,7 @@
               :rules="validRule"
             ></v-text-field>
           </v-col>
-          <v-col md="6">
+          <v-col md="6" cols="6">
             <label>Lipid Test</label>
             <v-text-field
               outlined
@@ -86,6 +86,58 @@
               hide-details="auto"
               solo
               v-model="formData.lipid_test"
+              :rules="validRule"
+            ></v-text-field>
+          </v-col>
+          <v-col md="6" cols="6">
+            <label>Total Cholesterol</label>
+            <v-text-field
+              outlined
+              class="formInput"
+              placeholder="Number"
+              required
+              hide-details="auto"
+              solo
+              v-model="formData.total_cholesterol"
+              :rules="validRule"
+            ></v-text-field>
+          </v-col>
+          <v-col md="6" cols="6">
+            <label>LDL</label>
+            <v-text-field
+              outlined
+              class="formInput"
+              placeholder="Number"
+              required
+              hide-details="auto"
+              solo
+              v-model="formData.LDL"
+              :rules="validRule"
+            ></v-text-field>
+          </v-col>
+          <v-col md="6" cols="6">
+            <label>HDL</label>
+            <v-text-field
+              outlined
+              class="formInput"
+              placeholder="Number"
+              required
+              hide-details="auto"
+              solo
+              v-model="formData.HDL"
+              :rules="validRule"
+            ></v-text-field>
+          </v-col>
+          <v-col md="6" cols="6">
+            <label>Triglycerides</label>
+            <v-text-field
+              outlined
+              class="formInput"
+              placeholder="Number"
+              required
+              hide-details="auto"
+              solo
+              v-model="formData.triglycerides"
               :rules="validRule"
             ></v-text-field>
           </v-col>
@@ -134,6 +186,10 @@ export default {
         uuid: this.$route.query.uuid,
         lipid_test: "",
         hpa1c: "",
+        triglycerides: "",
+        HDL: "",
+        LDL: "",
+        total_cholesterol: "",
       },
     };
   },
@@ -164,7 +220,14 @@ export default {
   },
   computed: {
     isFormValid() {
-      return this.formData.lipid_test && this.formData.hpa1c;
+      return (
+        this.formData.lipid_test &&
+        this.formData.hpa1c &&
+        this.formData.triglycerides &&
+        this.formData.HDL &&
+        this.formData.LDL &&
+        this.formData.total_cholesterol
+      );
     },
   },
 };

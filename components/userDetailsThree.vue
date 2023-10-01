@@ -67,6 +67,30 @@
               </v-col>
               <v-col md="3" cols="4">
                 <p class="text-field-style">
+                  Triglycerides :
+                  {{ userData.triglycerides }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  HDL :
+                  {{ userData.HDL }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  LDL :
+                  {{ userData.LDL }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  Total Cholesterol :
+                  {{ userData.total_cholesterol }}
+                </p>
+              </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
                   Systolic Blood Pressure :
                   {{ userData.systolic_blood_pressure }}
                 </p>
