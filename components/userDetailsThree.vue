@@ -7,6 +7,7 @@
             <div class="step">
               Step
               <span class="stepNum"> 3 </span>
+              <span class="completed" v-if="userData.step != 3">Completed</span>
             </div>
           </v-col>
           <v-col cols="12" md="12" class="">
@@ -102,7 +103,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col>
+          <v-col v-if="userData.step == 3">
             <label>Risk Assessment</label>
             <v-textarea
               outlined

@@ -3,12 +3,20 @@
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
-          <v-col class="d-flex justify-center">
+          <v-col class="d-flex justify-center" v-if="userData.step == 1">
             <div class="step">
               Step
               <span class="stepNum"> 1 </span>
             </div>
           </v-col>
+          <v-col class="d-flex justify-center" v-else>
+            <div class="step">
+              Step
+              <span class="stepNum"> 1 </span>
+              <span class="completed">Completed</span>
+            </div>
+          </v-col>
+
           <v-col cols="12" md="12" class="">
             <div class="text-field-style">
               <h3>Personal Information</h3>
@@ -54,7 +62,8 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col md="6">
+
+          <v-col md="6" v-if="userData.step == 1">
             <label>hpa1c</label>
             <v-text-field
               outlined
@@ -67,7 +76,7 @@
               :rules="validRule"
             ></v-text-field>
           </v-col>
-          <v-col md="6">
+          <v-col md="6" v-if="userData.step == 1">
             <label>Lipid Test</label>
             <v-text-field
               outlined

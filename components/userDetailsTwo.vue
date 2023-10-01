@@ -1,14 +1,22 @@
 <template>
-  <div class="conOfForm logIn">
+  <div class="conOfForm logIn" v-if="userData">
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
-          <v-col class="d-flex justify-center">
+          <v-col class="d-flex justify-center" v-if="userData.step == 2">
             <div class="step">
               Step
               <span class="stepNum"> 2 </span>
             </div>
           </v-col>
+          <v-col class="d-flex justify-center" v-else>
+            <div class="step">
+              Step
+              <span class="stepNum"> 2 </span>
+              <span class="completed">Completed</span>
+            </div>
+          </v-col>
+
           <v-col cols="12" md="12" class="">
             <div class="text-field-style">
               <h3>Personal Information</h3>
@@ -66,89 +74,94 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col md="6" cols="6">
-            <label>Systolic Blood Pressure</label>
-            <v-text-field
-              type="number"
-              outlined
-              class="formInput"
-              placeholder="Number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.systolic_blood_pressure"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="6">
-            <label>Diastolic Blood Pressure</label>
-            <v-text-field
-              type="number"
-              outlined
-              class="formInput"
-              placeholder="Number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.diastolic_blood_pressure"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="6">
-            <label>weight</label>
-            <v-text-field
-              type="number"
-              outlined
-              class="formInput"
-              placeholder="Number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.weight"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="6">
-            <label>height</label>
-            <v-text-field
-              type="number"
-              outlined
-              class="formInput"
-              placeholder="Number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.height"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="6">
-            <label>Blood Sugar</label>
-            <v-text-field
-              outlined
-              class="formInput"
-              placeholder="Number"
-              required
-              hide-details="auto"
-              type="number"
-              solo
-              v-model="formData.blood_sugar"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="6">
-            <label>pulse</label>
-            <v-text-field
-              type="number"
-              outlined
-              class="formInput"
-              placeholder="Number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.pulse"
-              :rules="validRule"
-            ></v-text-field>
+          <v-col v-if="userData.step == 2" class="d-flex">
+            <v-row>
+              <v-col md="6" cols="6">
+                <label>Systolic Blood Pressure</label>
+                <v-text-field
+                  type="number"
+                  outlined
+                  class="formInput"
+                  placeholder="Number"
+                  required
+                  hide-details="auto"
+                  solo
+                  v-model="formData.systolic_blood_pressure"
+                  :rules="validRule"
+                ></v-text-field>
+              </v-col>
+
+              <v-col md="6" cols="6">
+                <label>Diastolic Blood Pressure</label>
+                <v-text-field
+                  type="number"
+                  outlined
+                  class="formInput"
+                  placeholder="Number"
+                  required
+                  hide-details="auto"
+                  solo
+                  v-model="formData.diastolic_blood_pressure"
+                  :rules="validRule"
+                ></v-text-field>
+              </v-col>
+              <v-col md="6" cols="6">
+                <label>weight</label>
+                <v-text-field
+                  type="number"
+                  outlined
+                  class="formInput"
+                  placeholder="Number"
+                  required
+                  hide-details="auto"
+                  solo
+                  v-model="formData.weight"
+                  :rules="validRule"
+                ></v-text-field>
+              </v-col>
+              <v-col md="6" cols="6">
+                <label>height</label>
+                <v-text-field
+                  type="number"
+                  outlined
+                  class="formInput"
+                  placeholder="Number"
+                  required
+                  hide-details="auto"
+                  solo
+                  v-model="formData.height"
+                  :rules="validRule"
+                ></v-text-field>
+              </v-col>
+              <v-col md="6" cols="6">
+                <label>Blood Sugar</label>
+                <v-text-field
+                  outlined
+                  class="formInput"
+                  placeholder="Number"
+                  required
+                  hide-details="auto"
+                  type="number"
+                  solo
+                  v-model="formData.blood_sugar"
+                  :rules="validRule"
+                ></v-text-field>
+              </v-col>
+              <v-col md="6" cols="6">
+                <label>pulse</label>
+                <v-text-field
+                  type="number"
+                  outlined
+                  class="formInput"
+                  placeholder="Number"
+                  required
+                  hide-details="auto"
+                  solo
+                  v-model="formData.pulse"
+                  :rules="validRule"
+                ></v-text-field>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
       </div>

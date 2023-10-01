@@ -2,7 +2,9 @@
   <div>
     <div class="image">
       <v-col class="logOutBtn" cols="2">
-        <v-btn class="primary LoginBtn" @click="logOut()"> LogOut </v-btn>
+        <v-btn class="primary LoginBtn" v-if="loggedIn" @click="logOut()">
+          Logout
+        </v-btn>
       </v-col>
       <!-- <img class="image" src="@/assets/Photos/header copy.jpeg" alt="logo" /> -->
       <div class="conOfHeader mb-3">
@@ -24,21 +26,31 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      loggedIn: false,
+    };
   },
   mounted() {},
 
   methods: {
     async logOut() {
-      const data = await this.$axios.$post("/auth/logout");
-      console.log("data", data);
-      // if (data.message === "Successfully logged out") {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("name");
-      localStorage.removeItem("userData");
-      this.$router.push("/");
-      // }
+      try {
+        await this.$axios.$post("/auth/logout");
+        console.log("Successfully logged out");
+        localStorage.removeItem("token");
+        localStorage.removeItem("name");
+        localStorage.removeItem("userData");
+        this.loggedIn = false;
+        this.$router.push("/");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
     },
+  },
+  created() {
+    if (localStorage.getItem("token")) {
+      this.loggedIn = true;
+    }
   },
 };
 </script>
