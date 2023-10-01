@@ -6,13 +6,13 @@
           <v-col class="d-flex justify-center" v-if="userData.step == 2">
             <div class="step">
               Step
-              <span class="stepNum"> 2 </span>
+              <span class="stepNum"> 3 </span>
             </div>
           </v-col>
           <v-col class="d-flex justify-center" v-else>
             <div class="step">
               Step
-              <span class="stepNum"> 2 </span>
+              <span class="stepNum"> 4 </span>
               <span class="completed">Completed</span>
             </div>
           </v-col>
@@ -74,7 +74,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col v-if="userData.step == 2" class="d-flex">
+          <v-col class="d-flex">
             <v-row>
               <v-col md="6" cols="6">
                 <label>Systolic Blood Pressure</label>

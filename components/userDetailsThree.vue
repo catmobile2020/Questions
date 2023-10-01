@@ -6,7 +6,7 @@
           <v-col class="d-flex justify-center">
             <div class="step">
               Step
-              <span class="stepNum"> 3 </span>
+              <span class="stepNum"> 4 </span>
               <span class="completed" v-if="userData.step != 3">Completed</span>
             </div>
           </v-col>
@@ -103,7 +103,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col v-if="userData.step == 3">
+          <v-col>
             <label>Risk Assessment</label>
             <v-textarea
               outlined
