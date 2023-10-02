@@ -6,17 +6,17 @@
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
-          <v-col class="d-flex justify-center" v-if="userData.step == 3">
+          <v-col class="d-flex justify-center" v-if="userData.step == 4">
             <div class="step">
               Step
               <span class="stepNum"> 4 </span>
+              <span class="completed">Completed</span>
             </div>
           </v-col>
           <v-col class="d-flex justify-center" v-else>
             <div class="step">
               Step
               <span class="stepNum"> 4 </span>
-              <span class="completed">Completed</span>
             </div>
           </v-col>
           <v-col cols="12" md="12" class="">
