@@ -84,11 +84,8 @@ export default {
   },
   methods: {
     async getData() {
-      // Retrieve the stored data from local storage
       const storedUserData = localStorage.getItem("userData");
-
       if (storedUserData) {
-        // Parse the JSON string back to an object
         this.userData = JSON.parse(storedUserData);
         console.log("this.userData", this.userData);
       }

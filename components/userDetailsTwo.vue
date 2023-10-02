@@ -1,5 +1,8 @@
 <template>
-  <div class="conOfForm logIn" v-if="userData">
+  <div
+    class="conOfForm logIn"
+    v-if="userData && Object.keys(userData).length > 0"
+  >
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
@@ -217,6 +220,7 @@
       </v-dialog>
     </v-container>
   </div>
+  <div v-else class="errMessage">Patient not found!</div>
 </template>
 
 <script>

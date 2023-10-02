@@ -142,7 +142,7 @@
         color="red"
         shaped
         top
-        center
+        right
         :timeout="timeout"
       >
         {{ errorMessage }}
@@ -189,7 +189,21 @@ export default {
         this.apiResponse = data.data;
         this.showDialog = true;
       } catch (error) {
-        console.error("API Error:", error);
+        if (error && error.data) {
+          const errorData = error.data.error;
+          const errorMessages = [];
+          for (const field in errorData) {
+            if (Array.isArray(errorData[field])) {
+              errorData[field].forEach((message) => {
+                errorMessages.push(message);
+              });
+            }
+          }
+          this.errorSnackbar = true;
+          this.errorMessage = errorMessages.join("\n");
+        } else {
+          this.errorMessage = "Registration failed. Please try again later.";
+        }
       }
     },
   },

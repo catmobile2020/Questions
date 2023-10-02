@@ -241,7 +241,7 @@
           v-model="errorSnackbar"
           color="red"
           shaped
-          bottom
+          top
           right
           :timeout="timeout"
         >
@@ -312,7 +312,7 @@ export default {
         this.selectedUserData.name &&
         this.selectedUserData.email &&
         this.selectedUserData.password &&
-        this.selectedUserData.step 
+        this.selectedUserData.type_id 
       );
     },
   },
@@ -351,41 +351,47 @@ async saveEditedUser() {
     const data = await this.$axios.$put(`/admin/users/${id}`, this.selectedUserData);
     this.EditUser = false;
     this.getUsers(); 
-  } catch (error) {
-    console.error("API Error:", error);
-  }
+  }  catch (error) {
+        if (error && error.data) {
+          const errorData = error.data.error;
+          const errorMessages = [];
+          for (const field in errorData) {
+            if (Array.isArray(errorData[field])) {
+              errorData[field].forEach((message) => {
+                errorMessages.push(message);
+              });
+            }
+          }
+          this.errorSnackbar = true;
+          this.errorMessage = errorMessages.join("\n");
+        } else {
+          this.errorMessage = "Registration failed. Please try again later.";
+        }
+      }
 },
-   async addUser() {
+async addUser() {
   try {
     const data = await this.$axios.$post("/admin/users", this.selectedUserData);
     this.apiResponse = data.data;
     this.getUsers();
-       this.AddUser = false;
+    this.AddUser = false;
   } catch (error) {
-    console.error("Error caught:", error);
-
-    if (error.response && error.response.data) {
-      const errorData = error.response.data.error;
-      console.log("errorData:", errorData);
-
-      const errorMessages = [];
-
-      for (const field in errorData) {
-        if (Array.isArray(errorData[field])) {
-          errorData[field].forEach((message) => {
-            errorMessages.push(message);
-          });
+        if (error && error.data) {
+          const errorData = error.data.error;
+          const errorMessages = [];
+          for (const field in errorData) {
+            if (Array.isArray(errorData[field])) {
+              errorData[field].forEach((message) => {
+                errorMessages.push(message);
+              });
+            }
+          }
+          this.errorSnackbar = true;
+          this.errorMessage = errorMessages.join("\n");
+        } else {
+          this.errorMessage = "Registration failed. Please try again later.";
         }
       }
-      this.errorSnackbar = true;
-
-      this.errorMessage = errorMessages.join("\n");
-      console.error("Registration failed:", this.errorMessage);
-    } else {
-      console.error("Registration failed:", error.message);
-      this.errorMessage = "Registration failed. Please try again later.";
-    }
-  }
 },
   async deleteUser() {
     try {

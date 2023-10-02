@@ -1,5 +1,8 @@
 <template>
-  <div class="conOfForm logIn">
+  <div
+    class="conOfForm logIn"
+    v-if="userData && Object.keys(userData).length > 0"
+  >
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
@@ -169,14 +172,28 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <v-snackbar
+        v-model="errorSnackbar"
+        color="red"
+        shaped
+        bottom
+        right
+        :timeout="timeout"
+      >
+        {{ errorMessage }}
+      </v-snackbar>
     </v-container>
   </div>
+  <div v-else class="errMessage">Patient not found!</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      errorSnackbar: false,
+      timeout: 3000,
+      errorMessage: "",
       validRule: [(v) => !!v || "Filed is Required"],
       showDialog: false,
       pressureScale: null,
@@ -199,7 +216,21 @@ export default {
         const data = await this.$axios.$post("/step-two/update", this.formData);
         this.showDialog = true;
       } catch (error) {
-        console.error("API Error:", error);
+        if (error && error.data) {
+          const errorData = error.data.error;
+          const errorMessages = [];
+          for (const field in errorData) {
+            if (Array.isArray(errorData[field])) {
+              errorData[field].forEach((message) => {
+                errorMessages.push(message);
+              });
+            }
+          }
+          this.errorSnackbar = true;
+          this.errorMessage = errorMessages.join("\n");
+        } else {
+          this.errorMessage = "Registration failed. Please try again later.";
+        }
       }
     },
     async getData() {

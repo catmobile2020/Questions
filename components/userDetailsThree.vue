@@ -1,13 +1,22 @@
 <template>
-  <div class="conOfForm logIn">
+  <div
+    class="conOfForm logIn"
+    v-if="userData && Object.keys(userData).length > 0"
+  >
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
-          <v-col class="d-flex justify-center">
+          <v-col class="d-flex justify-center" v-if="userData.step == 3">
             <div class="step">
               Step
               <span class="stepNum"> 4 </span>
-              <span class="completed" v-if="userData.step != 3">Completed</span>
+            </div>
+          </v-col>
+          <v-col class="d-flex justify-center" v-else>
+            <div class="step">
+              Step
+              <span class="stepNum"> 4 </span>
+              <span class="completed">Completed</span>
             </div>
           </v-col>
           <v-col cols="12" md="12" class="">
@@ -169,6 +178,7 @@
       </v-dialog>
     </v-container>
   </div>
+  <div v-else class="errMessage">Patient not found!</div>
 </template>
 
 <script>

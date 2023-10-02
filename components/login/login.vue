@@ -60,7 +60,7 @@
       color="red"
       shaped
       top
-      center
+      right
       :timeout="timeout"
     >
       {{ errorMessage }}
@@ -102,7 +102,9 @@ export default {
           }
         }
       } catch (error) {
-        console.error("API Error:", error);
+        const errorData = error.data.error;
+        this.errorSnackbar = true;
+        this.errorMessage = errorData;
       }
     },
   },
