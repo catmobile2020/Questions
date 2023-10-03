@@ -1,9 +1,6 @@
 <template>
   <div class="Header">
     <section class="">
-      <Header />
-    </section>
-    <section class="">
       <PatientProfile />
     </section>
   </div>

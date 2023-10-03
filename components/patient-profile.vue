@@ -1,5 +1,14 @@
 <template>
   <div class="conOfForm logIn">
+    <div>
+      <div class="image">
+        <v-col class="logOutBtn d-flex justify-end" cols="2">
+          <nuxt-link to="userID" class="">
+            <v-btn text class="primary text"> back </v-btn>
+          </nuxt-link>
+        </v-col>
+      </div>
+    </div>
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
@@ -9,6 +18,9 @@
           <v-col cols="12" md="12" class="">
             <div class="text-field-style">
               <h3>Personal Information</h3>
+              <v-col class="d-flex justify-center">
+                <img width="200" :src="userData.qr_code" alt="" />
+              </v-col>
               <div class="d-flex">
                 <p class="text-field-style">Name : {{ userData.name }}</p>
                 <p class="text-field-style">age : {{ userData.age }}</p>
