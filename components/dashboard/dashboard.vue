@@ -5,8 +5,8 @@
         <v-row>
           <br />
           <h1 class="text-center ma-auto">Total number of scanned attendees</h1>
-          <v-col cols="12 d-flex text-field-style">
-            <v-col md="6" class="">
+          <v-col cols="12" class="d-md-flex text-field-style">
+            <v-col md="6" cols="12" class="">
               <v-card class="mx-auto" max-width="344" outlined>
                 <v-list-item three-line>
                   <v-list-item-content>
@@ -23,7 +23,7 @@
                 <v-card-actions> </v-card-actions>
               </v-card>
             </v-col>
-            <v-col md="6">
+            <v-col md="6" cols="12">
               <v-card class="mx-auto" max-width="344" outlined>
                 <v-list-item three-line>
                   <v-list-item-content>

@@ -4,7 +4,7 @@
       <v-list>
         <v-list-item class="mx-auto">
           <v-list-item-avatar>
-            <v-img src="../assets/Photos/logo.png"></v-img>
+            <v-img :src="require('@/assets/Photos/logo.png')" />
           </v-list-item-avatar>
         </v-list-item>
         <v-list-item class="text-center">

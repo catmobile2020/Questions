@@ -29,12 +29,16 @@
             <div class="text-field-style">
               <h3>Personal Information</h3>
               <div class="d-flex">
-                <p class="text-field-style">Name : {{ userData.name }}</p>
-                <p class="text-field-style">age : {{ userData.age }}</p>
-                <p class="text-field-style">gender : {{ userData.gender }}</p>
-                <p class="text-field-style">
-                  national id : {{ userData.national_id }}
-                </p>
+                <v-col md="6" cols="6">
+                  <p class="text-field-style">Name : {{ userData.name }}</p>
+                  <p class="text-field-style">age : {{ userData.age }}</p>
+                </v-col>
+                <v-col md="6" cols="6">
+                  <p class="text-field-style">gender : {{ userData.gender }}</p>
+                  <p class="text-field-style">
+                    national id : {{ userData.national_id }}
+                  </p>
+                </v-col>
               </div>
             </div>
             <v-row class="d-flex">
