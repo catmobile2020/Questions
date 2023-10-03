@@ -12,7 +12,7 @@
           </span>
         </div>
         <v-row class="d-flex justify-center mt-3">
-          <v-col md="6">
+          <v-col md="6" cols="6">
             <v-text-field
               outlined
               placeholder="Name"
@@ -24,7 +24,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-col md="6">
+          <v-col md="6" cols="6">
             <v-text-field
               outlined
               class="formInput"
@@ -37,7 +37,7 @@
               :rules="validRule"
             ></v-text-field>
           </v-col>
-          <v-col md="6">
+          <v-col md="6" cols="6">
             <v-select
               :items="genders"
               label="Gender"
@@ -49,7 +49,7 @@
               :rules="validRule"
             ></v-select>
           </v-col>
-          <v-col md="6">
+          <v-col md="6" cols="6">
             <v-text-field
               outlined
               class="formInput"
