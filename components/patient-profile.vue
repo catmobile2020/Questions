@@ -1,23 +1,10 @@
 <template>
-  <div
-    class="conOfForm logIn"
-    v-if="userData && Object.keys(userData).length > 0"
-  >
+  <div class="conOfForm logIn">
     <v-container class="loginForm">
       <div class="userDetails">
         <v-row>
-          <v-col class="d-flex justify-center" v-if="userData.step == 4">
-            <div class="step">
-              Step
-              <span class="stepNum"> 4 </span>
-              <span class="completed">Completed</span>
-            </div>
-          </v-col>
-          <v-col class="d-flex justify-center" v-else>
-            <div class="step">
-              Step
-              <span class="stepNum"> 4 </span>
-            </div>
+          <v-col class="d-flex justify-center">
+            <div class="step">Patient Profile</div>
           </v-col>
           <v-col cols="12" md="12" class="">
             <div class="text-field-style">
@@ -134,80 +121,24 @@
                   {{ userData.pulse }}
                 </p>
               </v-col>
+              <v-col md="3" cols="4">
+                <p class="text-field-style">
+                  10-year estimated risk for ASCVDs :
+                  {{ userData.risk_assessment }}
+                </p>
+              </v-col>
             </v-row>
-          </v-col>
-          <v-col>
-            <label>10-year estimated risk for ASCVDs</label>
-            <v-textarea
-              outlined
-              class="formInput"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.risk_assessment"
-              :rules="validRule"
-            ></v-textarea>
           </v-col>
         </v-row>
       </div>
-      <v-col md="12" class="d-flex justify-center">
-        <v-btn
-          class="primary SubmitBtn"
-          :disabled="!isFormValid"
-          @click="submit()"
-        >
-          Submit
-        </v-btn>
-      </v-col>
-      <v-dialog v-model="showDialog" max-width="500">
-        <v-card>
-          <v-card-title class="d-flex justify-center">
-            <h3>{{ formData.name }}</h3>
-            <v-icon class="mark"> mdi-checkbox-marked-circle </v-icon>
-          </v-card-title>
-          <v-card-text>
-            <span class="thankYou">Thank You For Your Registration</span>
-          </v-card-text>
-          <v-card-actions class="pb-10">
-            <v-spacer></v-spacer>
-            <nuxt-link
-              :to="{
-                name: 'patient-profile',
-                query: { uuid: formData.uuid },
-              }"
-              class="link"
-            >
-              <v-btn color="primary " @click="showDialog = false"
-                >go to patient profile
-              </v-btn>
-            </nuxt-link>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </v-container>
-    <v-snackbar
-      v-model="errorSnackbar"
-      color="red"
-      shaped
-      top
-      right
-      :timeout="timeout"
-    >
-      {{ errorMessage }}
-    </v-snackbar>
   </div>
-  <div v-else class="errMessage">Patient not found!</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      errorSnackbar: false,
-      timeout: 3000,
-      errorMessage: "",
-      validRule: [(v) => !!v || "Filed is Required"],
-      showDialog: false,
       pressureScale: null,
       bloodSugarLevel: null,
       userData: {},
@@ -217,47 +148,8 @@ export default {
       },
     };
   },
-  computed: {
-    isFormValid() {
-      return this.formData.risk_assessment;
-    },
-  },
+  computed: {},
   methods: {
-    async submit() {
-      try {
-        const data = await this.$axios.$post(
-          "/step-four/update",
-          this.formData
-        );
-        this.showDialog = true;
-      } catch (error) {
-        if (error && error.data) {
-          const errorData = error.data.error;
-          const errorMessageData = error.data.message;
-          console.log("errorMessageData", errorMessageData);
-          if (errorMessageData) {
-            // Handle non-validation error messages
-            this.errorMessage = errorMessageData;
-            console.log("errorMessage", this.errorMessage);
-            this.errorSnackbar = true;
-          } else {
-            // Handle validation errors
-            const errorMessages = [];
-            for (const field in errorData) {
-              if (Array.isArray(errorData[field])) {
-                errorData[field].forEach((message) => {
-                  errorMessages.push(message);
-                });
-              }
-            }
-            this.errorSnackbar = true;
-            this.errorMessage = errorMessages.join("\n");
-          }
-        } else {
-          this.errorMessage = "Something went wrong.";
-        }
-      }
-    },
     async getData() {
       try {
         const data = await this.$axios.$get(

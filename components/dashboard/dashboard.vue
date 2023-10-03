@@ -255,6 +255,12 @@
               <v-label class="bold-text">Systolic blood pressure:</v-label>
               <span>{{ info.systolic_blood_pressure }}</span>
             </v-col>
+            <v-col md="6">
+              <v-label class="bold-text"
+                >10-year estimated risk for ASCVDs:</v-label
+              >
+              <span>{{ info.risk_assessment }}</span>
+            </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions class="justify-end">

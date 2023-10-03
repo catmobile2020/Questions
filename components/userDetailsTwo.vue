@@ -222,6 +222,16 @@
         </v-card>
       </v-dialog>
     </v-container>
+    <v-snackbar
+      v-model="errorSnackbar"
+      color="red"
+      shaped
+      top
+      right
+      :timeout="timeout"
+    >
+      {{ errorMessage }}
+    </v-snackbar>
   </div>
   <div v-else class="errMessage">Patient not found!</div>
 </template>
@@ -230,6 +240,9 @@
 export default {
   data() {
     return {
+      errorSnackbar: false,
+      timeout: 3000,
+      errorMessage: "",
       validRule: [(v) => !!v || "Filed is Required"],
       showDialog: false,
       pressureScale: null,
@@ -267,7 +280,31 @@ export default {
         );
         this.showDialog = true;
       } catch (error) {
-        console.error("API Error:", error);
+        if (error && error.data) {
+          const errorData = error.data.error;
+          const errorMessageData = error.data.message;
+          console.log("errorMessageData", errorMessageData);
+          if (errorMessageData) {
+            // Handle non-validation error messages
+            this.errorMessage = errorMessageData;
+            console.log("errorMessage", this.errorMessage);
+            this.errorSnackbar = true;
+          } else {
+            // Handle validation errors
+            const errorMessages = [];
+            for (const field in errorData) {
+              if (Array.isArray(errorData[field])) {
+                errorData[field].forEach((message) => {
+                  errorMessages.push(message);
+                });
+              }
+            }
+            this.errorSnackbar = true;
+            this.errorMessage = errorMessages.join("\n");
+          }
+        } else {
+          this.errorMessage = "Something went wrong.";
+        }
       }
     },
     async getData() {
