@@ -2,12 +2,11 @@
   <v-app>
     <v-navigation-drawer v-model="drawer" app clipped left>
       <v-list>
-        <!--   <v-list-item class="mx-auto">
+        <v-list-item class="mx-auto">
           <v-list-item-avatar>
             <v-img src="../assets/Photos/logo.png"></v-img>
           </v-list-item-avatar>
         </v-list-item>
--->
         <v-list-item class="text-center">
           <v-list-item-content>
             <v-list-item-title class="text-h6 text-center">

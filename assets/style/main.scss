@@ -343,6 +343,9 @@ footer {
     background-repeat: no-repeat;
     position: relative;
   }
+  .logOutBtn {
+    right: 80px !important;
+  }
 }
 @media screen and (max-width: 800px) {
   .conOfHeader {
@@ -363,6 +366,10 @@ footer {
 .logOutBtn {
   position: absolute;
   right: 0px;
+}
+.text {
+  font-size: 20px !important;
+  text-transform: capitalize !important;
 }
 .register-btn {
   padding: 20px 70px !important;

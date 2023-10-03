@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="image">
-      <v-col class="logOutBtn" cols="2">
-        <v-btn class="primary LoginBtn" v-if="loggedIn" @click="logOut()">
+      <v-col class="logOutBtn d-flex justify-end" cols="2">
+        <v-btn text class="primary text" v-if="loggedIn" @click="logOut()">
           Logout
         </v-btn>
       </v-col>
