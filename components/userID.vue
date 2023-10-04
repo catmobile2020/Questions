@@ -20,10 +20,15 @@
                     ></v-text-field>
                   </v-col>
                   <v-col md="6">
-                    <v-btn type="button" class="primary" id="scanner-btn" data-toggle="modal"
-                                @click="dialog = true, onDetect()">
-                            Scan QR Code
-                        </v-btn>
+                    <v-btn
+                      type="button"
+                      class="primary"
+                      id="scanner-btn"
+                      data-toggle="modal"
+                      @click="(dialog = true), onDetect()"
+                    >
+                      Scan QR Code
+                    </v-btn>
                   </v-col>
                   <v-col md="6" v-if="userData && userData.type_id">
                     <!-- Conditionally render the nuxt-link based on type_id -->
@@ -79,8 +84,17 @@
       <v-card>
         <v-card-text>
           <div class="modal-body">
-            <qrcode-stream @detect="onDetect" :constraints="{ facingMode }" @error="onError">
-              <v-btn class="switch-camera primary" outlined icon @click="switchCamera">
+            <qrcode-stream
+              @detect="onDetect"
+              :constraints="{ facingMode }"
+              @error="onError"
+            >
+              <v-btn
+                class="switch-camera primary"
+                outlined
+                icon
+                @click="switchCamera"
+              >
                 <v-icon>mdi-camera-flip</v-icon>
               </v-btn>
             </qrcode-stream>
@@ -91,7 +105,7 @@
         <v-card-actions>
           <v-btn type="button" class="secondary" @click="dialog = false">
             Close
-        </v-btn>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -99,16 +113,16 @@
 </template>
 <script>
 // import { withBase } from 'vitepress'
-import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
+import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from "vue-qrcode-reader";
 export default {
   components: {
     QrcodeStream,
     QrcodeDropZone,
-    QrcodeCapture
+    QrcodeCapture,
   },
   data() {
     return {
-      facingMode: 'environment',  
+      facingMode: "environment",
       noRearCamera: false,
       noFrontCamera: true,
       dialog: false,
@@ -120,50 +134,50 @@ export default {
   },
   methods: {
     onError(error) {
-      const triedFrontCamera = this.facingMode === 'user'
-      const triedRearCamera = this.facingMode === 'environment'
+      const triedFrontCamera = this.facingMode === "user";
+      const triedRearCamera = this.facingMode === "environment";
 
-      const cameraMissingError = error.name === 'OverconstrainedError'
+      const cameraMissingError = error.name === "OverconstrainedError";
 
       if (triedRearCamera && cameraMissingError) {
-        this.noRearCamera = true
+        this.noRearCamera = true;
       }
 
       if (triedFrontCamera && cameraMissingError) {
-        this.noFrontCamera = true
+        this.noFrontCamera = true;
       }
 
-      console.error(error)
+      console.error(error);
     },
 
     // withBase,
     switchCamera() {
       switch (this.facingMode) {
-        case 'environment':
-          this.facingMode = 'user'
-          break
-        case 'user':
-          this.facingMode = 'environment'
-          break
+        case "environment":
+          this.facingMode = "user";
+          break;
+        case "user":
+          this.facingMode = "environment";
+          break;
       }
     },
-    async onDetect (detectedCodes) {
-    // ...
-    const data  = await detectedCodes
-    if(data.content) {
-      if (this.userData.type_id === 2 && this.userData.step === 'one'){
-      this.$router.push(`/userDetails?uuid=${data.content}`)
-    }
-    if (this.userData.type_id === 2 && this.userData.step === 'two'){
-      this.$router.push(`/userDetailsTwo?uuid=${data.content}`)
-    }
-    if (this.userData.type_id === 2 && this.userData.step === 'three'){
-      this.$router.push(`/userDetailsThree?uuid=${data.content}`)
-    }
-    }
-  },
-  
-  async getData() {
+    async onDetect(detectedCodes) {
+      // ...
+      const data = await detectedCodes;
+      if (data.content) {
+        if (this.userData.type_id === 2 && this.userData.step === "one") {
+          this.$router.push(`/userDetails?uuid=${data.content}`);
+        }
+        if (this.userData.type_id === 2 && this.userData.step === "two") {
+          this.$router.push(`/userDetailsTwo?uuid=${data.content}`);
+        }
+        if (this.userData.type_id === 2 && this.userData.step === "three") {
+          this.$router.push(`/userDetailsThree?uuid=${data.content}`);
+        }
+      }
+    },
+
+    async getData() {
       const storedUserData = localStorage.getItem("userData");
       if (storedUserData) {
         this.userData = JSON.parse(storedUserData);
@@ -182,12 +196,12 @@ export default {
 };
 </script>
 <style>
-.switch-camera{
+.switch-camera {
   position: absolute;
-    bottom: 25%;
-    left: 50%;
+  bottom: 25%;
+  left: 50%;
 }
-.switch-camera i{
+.switch-camera i {
   font-size: 50px;
   color: cornflowerblue;
 }
