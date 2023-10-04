@@ -93,7 +93,7 @@ export default {
         console.log("data", data);
         if (data.access_token) {
           localStorage.setItem("token", data.token_type + data.access_token);
-
+          this.$cookies.set("token", data.token_type + data.access_token)
           localStorage.setItem("userData", JSON.stringify(data.me));
           if (data.me.type === "Admin") {
             this.$router.push("/dashboard");

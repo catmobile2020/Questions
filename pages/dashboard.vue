@@ -14,6 +14,7 @@ import dashboard from "../components/dashboard/dashboard.vue";
 export default {
   name: "landingPages",
   layout: "dashboard",
+  middleware: 'authenticated',
   components: {
     dashboard,
   },

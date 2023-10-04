@@ -12,6 +12,7 @@
 import Header from "../components/header.vue";
 import UserDetailsTwo from "../components/userDetailsTwo.vue";
 export default {
+  middleware: 'authenticated',
   components: {
     Header,
     UserDetailsTwo,
