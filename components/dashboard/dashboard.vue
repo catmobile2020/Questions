@@ -178,7 +178,15 @@
     </v-container>
     <v-dialog v-model="dialog" max-width="600">
       <v-card>
-        <v-toolbar color="primary" dark>{{ info.name }}</v-toolbar>
+        <v-toolbar color="primary" dark>
+          <v-row>
+            <v-col>{{ info.name }}</v-col>
+            <v-col class="d-flex justify-end"
+              ><v-btn class="" @click="openPdf()"> PDF </v-btn></v-col
+            >
+          </v-row>
+        </v-toolbar>
+
         <v-card-text class="mt-3">
           <v-row>
             <v-col md="6">
@@ -271,6 +279,7 @@
   </v-form>
 </template>
 <script>
+import jsPDF from "jspdf";
 export default {
   data() {
     return {
@@ -334,6 +343,17 @@ export default {
       );
       this.attends = data.data;
     },
+
+    async openPdf() {
+      try {
+        const id = this.info.id;
+        const response = await this.$axios.$get(`admin/patient-profile/${id}`);
+        const pdfUrl = response.data.pdf;
+        window.open(pdfUrl, "_blank");
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    },
     async getAnalysis() {
       const { page, itemsPerPage } = this.options;
       const pageNumber = page;
@@ -341,7 +361,6 @@ export default {
         `/admin/analysis?page=${pageNumber}&age=${this.filter.age}&gender=${this.filter.gender}&diabetic=${this.filter.diabetic}&hypertensive=${this.filter.hypertensive}&dyslipidemia=${this.filter.dyslipidemia}&smoker=${this.filter.smoker}&risk=${this.filter.risk}&ber_day=${this.filter.ber_day}`
       );
       this.data = data.data;
-
       this.totalItems = data.meta.total;
       this.numberOfPages = data.meta.last_page;
     },
