@@ -31,7 +31,6 @@
                     </v-btn>
                   </v-col>
                   <v-col md="6" cols="6" v-if="userData && userData.type_id">
-                    <!-- Conditionally render the nuxt-link based on type_id -->
                     <nuxt-link
                       v-if="userData.type_id === 2 && userData.step === 'one'"
                       :to="{
@@ -84,7 +83,11 @@
       <v-card>
         <v-card-text>
           <div class="modal-body">
-            <qrcode-stream @detect="onDetect">
+            <qrcode-stream
+              @detect="onDetect"
+              :constraints="{ facingMode }"
+              @error="onError"
+            >
               <v-btn
                 class="switch-camera primary"
                 outlined
@@ -149,11 +152,11 @@ export default {
     // withBase,
     switchCamera() {
       if (this.facingMode === "environment") {
-        this.facingMode = "user"; // Switch to front camera
-        console.log("front camera", this.facingMode);
+        // Already using the back camera, no need to switch
+        console.log("Using the back camera");
       } else {
         this.facingMode = "environment"; // Switch to back camera
-        console.log("back camera", this.facingMode);
+        console.log("Switched to the back camera", this.facingMode);
       }
     },
 
