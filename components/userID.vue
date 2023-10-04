@@ -7,7 +7,7 @@
             <div class="userID">
               <div class="btn-container">
                 <v-row>
-                  <v-col md="6">
+                  <v-col md="6" cols="6">
                     <v-text-field
                       outlined
                       class="formInput"
@@ -19,7 +19,7 @@
                       :rules="validRule"
                     ></v-text-field>
                   </v-col>
-                  <v-col md="6">
+                  <v-col md="6" cols="6">
                     <v-btn
                       type="button"
                       class="primary"
@@ -30,7 +30,7 @@
                       Scan QR Code
                     </v-btn>
                   </v-col>
-                  <v-col md="6" v-if="userData && userData.type_id">
+                  <v-col md="6" cols="6" v-if="userData && userData.type_id">
                     <!-- Conditionally render the nuxt-link based on type_id -->
                     <nuxt-link
                       v-if="userData.type_id === 2 && userData.step === 'one'"
@@ -152,15 +152,15 @@ export default {
 
     // withBase,
     switchCamera() {
-      switch (this.facingMode) {
-        case "environment":
-          this.facingMode = "user";
-          break;
-        case "user":
-          this.facingMode = "environment";
-          break;
+      if (this.facingMode === "environment") {
+        this.facingMode = "user"; // Switch to front camera
+        console.log("front camera", this.facingMode);
+      } else {
+        this.facingMode = "environment"; // Switch to back camera
+        console.log("back camera", this.facingMode);
       }
     },
+
     async onDetect(detectedCodes) {
       // ...
       const data = await detectedCodes;
