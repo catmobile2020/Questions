@@ -85,7 +85,7 @@
           <div class="modal-body">
             <qrcode-stream
               @detect="onDetect"
-              :constraints="{ video: { facingMode: facingMode } }"
+              :constraints="{ video: facingMode }"
               @error="onError"
             >
               <v-btn
@@ -127,6 +127,8 @@ export default {
       noFrontCamera: true,
       dialog: false,
       userID: null,
+      deviceId: null,
+      videoDevices: [],
       formData: {
         uuid: "",
       },
@@ -149,10 +151,29 @@ export default {
 
       console.error(error);
     },
-    toggleCamera() {
-      this.facingMode =
-        this.facingMode === "environment" ? "user" : "environment";
+    async toggleCamera() {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      this.videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+
+      if (this.videoDevices.length > 1) {
+        this.deviceId =
+          this.deviceId === null
+            ? this.videoDevices[0].deviceId
+            : this.videoDevices.find(
+                (device) => device.deviceId !== this.deviceId
+              )?.deviceId || null;
+      }
+
+      this.facingMode = this.deviceId
+        ? { deviceId: { exact: this.deviceId } }
+        : "environment";
+      console.log("facingMode", this.facingMode);
+      console.log("deviceId", this.deviceId);
+      console.log("videoDevices.length", this.videoDevices.length);
     },
+    // ...
     // withBase,
     // switchCamera() {
     //   if (this.facingMode === "environment") {
