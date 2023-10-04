@@ -110,7 +110,7 @@ export default {
     return {
       facingMode: 'environment',  
       noRearCamera: false,
-      noFrontCamera: false,
+      noFrontCamera: true,
       dialog: false,
       userID: null,
       formData: {
