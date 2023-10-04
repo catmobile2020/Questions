@@ -79,7 +79,11 @@
       <v-card>
         <v-card-text>
           <div class="modal-body">
-            <qrcode-stream @detect="onDetect"></qrcode-stream>
+            <qrcode-stream @detect="onDetect" :constraints="{ facingMode }" @error="onError">
+              <v-btn class="switch-camera primary" outlined icon @click="switchCamera">
+                <v-icon>mdi-camera-flip</v-icon>
+              </v-btn>
+            </qrcode-stream>
             <!-- <qrcode-drop-zone></qrcode-drop-zone>
             <qrcode-capture></qrcode-capture> -->
           </div>
@@ -94,6 +98,7 @@
   </v-form>
 </template>
 <script>
+// import { withBase } from 'vitepress'
 import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 export default {
   components: {
@@ -103,6 +108,9 @@ export default {
   },
   data() {
     return {
+      facingMode: 'environment',  
+      noRearCamera: false,
+      noFrontCamera: false,
       dialog: false,
       userID: null,
       formData: {
@@ -111,6 +119,34 @@ export default {
     };
   },
   methods: {
+    onError(error) {
+      const triedFrontCamera = this.facingMode === 'user'
+      const triedRearCamera = this.facingMode === 'environment'
+
+      const cameraMissingError = error.name === 'OverconstrainedError'
+
+      if (triedRearCamera && cameraMissingError) {
+        this.noRearCamera = true
+      }
+
+      if (triedFrontCamera && cameraMissingError) {
+        this.noFrontCamera = true
+      }
+
+      console.error(error)
+    },
+
+    // withBase,
+    switchCamera() {
+      switch (this.facingMode) {
+        case 'environment':
+          this.facingMode = 'user'
+          break
+        case 'user':
+          this.facingMode = 'environment'
+          break
+      }
+    },
     async onDetect (detectedCodes) {
     // ...
     const data  = await detectedCodes
@@ -126,6 +162,7 @@ export default {
     }
     }
   },
+  
   async getData() {
       const storedUserData = localStorage.getItem("userData");
       if (storedUserData) {
@@ -144,3 +181,14 @@ export default {
   },
 };
 </script>
+<style>
+.switch-camera{
+  position: absolute;
+    bottom: 25%;
+    left: 50%;
+}
+.switch-camera i{
+  font-size: 50px;
+  color: cornflowerblue;
+}
+</style>
