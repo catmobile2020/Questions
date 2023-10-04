@@ -85,14 +85,14 @@
           <div class="modal-body">
             <qrcode-stream
               @detect="onDetect"
-              :constraints="{ facingMode }"
+              :constraints="{ facingMode: facingMode }"
               @error="onError"
             >
               <v-btn
                 class="switch-camera primary"
                 outlined
                 icon
-                @click="switchCamera"
+                @click="toggleCamera"
               >
                 <v-icon>mdi-camera-flip</v-icon>
               </v-btn>
@@ -121,6 +121,7 @@ export default {
   },
   data() {
     return {
+      validRule: [(v) => !!v || "Filed is Required"],
       facingMode: "environment",
       noRearCamera: false,
       noFrontCamera: true,
@@ -148,17 +149,20 @@ export default {
 
       console.error(error);
     },
-
-    // withBase,
-    switchCamera() {
-      if (this.facingMode === "environment") {
-        // Already using the back camera, no need to switch
-        console.log("Using the back camera");
-      } else {
-        this.facingMode = "environment"; // Switch to back camera
-        console.log("Switched to the back camera", this.facingMode);
-      }
+    toggleCamera() {
+      this.facingMode =
+        this.facingMode === "environment" ? "user" : "environment";
     },
+    // withBase,
+    // switchCamera() {
+    //   if (this.facingMode === "environment") {
+    //     // Already using the back camera, no need to switch
+    //     console.log("Using the back camera");
+    //   } else {
+    //     this.facingMode = "environment"; // Switch to back camera
+    //     console.log("Switched to the back camera", this.facingMode);
+    //   }
+    // },
 
     async onDetect(detectedCodes) {
       // ...
