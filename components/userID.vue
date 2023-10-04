@@ -85,7 +85,7 @@
           <div class="modal-body">
             <qrcode-stream
               @detect="onDetect"
-              :constraints="{ facingMode: facingMode }"
+              :constraints="{ video: { facingMode: facingMode } }"
               @error="onError"
             >
               <v-btn
