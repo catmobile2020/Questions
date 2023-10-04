@@ -84,11 +84,7 @@
       <v-card>
         <v-card-text>
           <div class="modal-body">
-            <qrcode-stream
-              @detect="onDetect"
-              :constraints="{ facingMode }"
-              @error="onError"
-            >
+            <qrcode-stream @detect="onDetect">
               <v-btn
                 class="switch-camera primary"
                 outlined
