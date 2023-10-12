@@ -1,225 +1,72 @@
 <template>
-  <div>
-    <div class="conOfForm logIn">
-      <v-container class="Register-form">
+  <div class="RegisterComponent">
+    <v-form class="conOfRegisterForm">
+      <v-container>
         <div>
-          <span class="patientDetails">
-            Kindly fill the data of your patient below</span
-          >
-          <span
-            >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            - - - - - -
-          </span>
-        </div>
-        <v-row class="d-flex justify-center mt-3">
-          <v-col md="6" cols="6">
-            <v-text-field
-              outlined
-              placeholder="Name"
-              required
-              solo
-              hide-details="auto"
-              v-model="formData.name"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
+          <v-container fluid>
+            <v-row class="d-flex justify-center">
+              <v-col md="6" cols="12" class="loginForm">
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="registerForm.name"
+                    outlined
+                    placeholder="Name"
+                    required
+                    solo
+                    hide-details="auto"
+                  ></v-text-field>
+                </v-col>
 
-          <v-col md="6" cols="6">
-            <v-text-field
-              outlined
-              class="formInput"
-              placeholder="Age"
-              type="number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.age"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col md="6" cols="6">
-            <v-select
-              :items="genders"
-              label="Gender"
-              outlined
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.gender"
-              :rules="validRule"
-            ></v-select>
-          </v-col>
-          <v-col md="6" cols="6">
-            <v-text-field
-              outlined
-              class="formInput"
-              placeholder="ID"
-              type="number"
-              required
-              hide-details="auto"
-              solo
-              v-model="formData.national_id"
-              :rules="validRule"
-            ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            v-for="(item, i) in questions"
-            :key="i"
-            class="text-field-style"
-          >
-            <p>{{ item }}</p>
-            <v-radio-group
-              row
-              :rules="validRule"
-              v-model="formData[item.toLowerCase()]"
-            >
-              <v-radio label="Yes" value="yes"></v-radio>
-              <v-radio label="No" value="no"></v-radio>
-            </v-radio-group>
-          </v-col>
-          <v-col cols="12" class="text-field-style">
-            <p>Family history of premature CAD</p>
-            <v-radio-group
-              row
-              v-model="formData.family_history_of_premature_CAD"
-            >
-              <v-radio label="Yes" value="yes"></v-radio>
-              <v-radio label="No" value="no"></v-radio>
-            </v-radio-group>
-          </v-col>
-          <v-col cols="12" md="12" class="d-flex justify-center">
-            <v-btn
-              class="primary registerStartBtn"
-              :disabled="!isFormValid"
-              @click="save()"
-            >
-              Start
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-dialog v-model="showDialog" max-width="500">
-          <v-card>
-            <v-card-title class="d-flex justify-center">
-              <h3>{{ formData.name }}</h3>
-              <v-icon class="mark"> mdi-checkbox-marked-circle </v-icon>
-            </v-card-title>
-            <v-card-text>
-              <span class="thankYou">Thank You For Your Registration</span>
-              <v-col>
-                <h3>
-                  Your id is :
-                  <span class="userId"> {{ apiResponse.uuid }} </span>
-                </h3>
+                <v-col cols="12" md="12" class="d-flex justify-center">
+                  <v-btn class="submitBtn" @click="saveName()">
+                    Click for the survey
+                  </v-btn>
+                </v-col>
               </v-col>
-              <v-col>
-                <h3>And QR Code is:</h3>
-                <img width="400" :src="apiResponse.qrCode" alt="" />
-              </v-col>
-            </v-card-text>
-            <v-card-actions class="pb-10">
-              <v-spacer></v-spacer>
-              <nuxt-link to="/" class="">
-                <v-btn color="primary" @click="showDialog = false">Close</v-btn>
-              </nuxt-link>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+            </v-row>
+          </v-container>
+        </div>
+        <v-snackbar
+          v-model="errorSnackbar"
+          color="red"
+          shaped
+          bottom
+          right
+          :timeout="timeout"
+        >
+          {{ errorMessage }}
+        </v-snackbar>
       </v-container>
-      <v-snackbar
-        v-model="successSnackbar"
-        color="success"
-        shaped
-        absolute
-        bottom
-        right
-        :timeout="timeout"
-      >
-        {{ successMessage }}
-      </v-snackbar>
-      <v-snackbar
-        v-model="errorSnackbar"
-        color="red"
-        shaped
-        top
-        right
-        :timeout="timeout"
-      >
-        {{ errorMessage }}
-      </v-snackbar>
-    </div>
+    </v-form>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      validRule: [(v) => !!v || "Filed is Required"],
-      showDialog: false,
-      apiResponse: {},
-      showPassword: false,
-      email: "",
-      password: "",
-      Me: {},
-      successSnackbar: false,
       errorSnackbar: false,
       timeout: 3000,
-      successMessage: "",
       errorMessage: "",
-      radios: null,
-      formData: {
+      showPassword: false,
+      registerData: [],
+      Me: {},
+      registerForm: {
         name: "",
-        gender: "",
-        age: "",
-        national_id: "",
-        diabetic: "",
-        hypertensive: "",
-        dyslipidemia: "",
-        smoker: "",
-        family_history_of_premature_CAD: "",
       },
-      genders: ["male", "female"],
-      questions: ["Diabetic", "Hypertensive", "Dyslipidemia", "Smoker"],
     };
   },
+  components: {},
+  created() {},
   methods: {
-    async save() {
-      try {
-        const data = await this.$axios.$post("/step-one/store", this.formData);
-        this.apiResponse = data.data;
-        this.showDialog = true;
-      } catch (error) {
-        if (error && error.data) {
-          const errorData = error.data.error;
-          const errorMessages = [];
-          for (const field in errorData) {
-            if (Array.isArray(errorData[field])) {
-              errorData[field].forEach((message) => {
-                errorMessages.push(message);
-              });
-            }
-          }
-          this.errorSnackbar = true;
-          this.errorMessage = errorMessages.join("\n");
-        } else {
-          this.errorMessage = "Registration failed. Please try again later.";
-        }
+    saveName() {
+      const name = this.registerForm.name;
+      if (name) {
+        localStorage.setItem("user_name", name);
+        this.$router.push("/Questions");
+      } else {
+        this.errorSnackbar = true;
+        this.errorMessage = "Please enter your name.";
       }
-    },
-  },
-  computed: {
-    isFormValid() {
-      return (
-        this.formData.name &&
-        this.formData.gender &&
-        this.formData.age &&
-        this.formData.national_id &&
-        this.formData.diabetic &&
-        this.formData.hypertensive &&
-        this.formData.dyslipidemia &&
-        this.formData.smoker &&
-        this.formData.family_history_of_premature_CAD
-      );
     },
   },
 };

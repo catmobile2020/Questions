@@ -1,21 +1,20 @@
 <template>
-  <div class="">
+  <div class="Header">
     <section class="">
       <Header />
     </section>
-    <section class="mt-8">
-      <UserDetailsThree />
+    <section class="">
+      <TopRank />
     </section>
   </div>
 </template>
 <script>
 import Header from "../components/header.vue";
-import UserDetailsThree from "../components/userDetailsThree.vue";
+import TopRank from "../components/topRank.vue";
 export default {
-  middleware: 'authenticated',
   components: {
     Header,
-    UserDetailsThree,
+    TopRank,
   },
 };
 </script>

@@ -1,22 +1,20 @@
 <template>
-  <div class="homepage">
+  <div class="Header">
     <section class="">
       <Header />
     </section>
     <section class="">
-      <landingPage />
+      <Questions />
     </section>
   </div>
 </template>
-
 <script>
+import Questions from "../components/Questions.vue";
 import Header from "../components/Header.vue";
-import landingPage from "../components/landingPage/landingPage.vue";
 export default {
-  name: "landingPages",
   components: {
+    Questions,
     Header,
-    landingPage,
   },
 };
 </script>

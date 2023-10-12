@@ -1,0 +1,504 @@
+<template>
+  <div>
+    <div>
+      <div class="questionComponent">
+        <v-form class="conOfForm">
+          <v-container>
+            <v-row class="d-flex justify-center">
+              <v-col cols="12" md="8" class="questionForm">
+                <v-col cols="12" class="score"
+                  >Your Score {{ answers.length }}</v-col
+                >
+                <v-col cols="12" v-if="currentIndex === 0">
+                  <label>Which CDK is more targeting breast cancer?</label>
+
+                  <v-radio-group v-model="selectedQ1Answer">
+                    <v-radio
+                      label="CDK4"
+                      value="CDK4"
+                      @change="checkQuestionOneAnswer('CDK4')"
+                      :disabled="selectedQ1Answer"
+                    ></v-radio>
+                    <v-radio
+                      label="CDK1"
+                      value="CDK1"
+                      @change="checkQuestionOneAnswer('CDK1')"
+                      :disabled="selectedQ1Answer"
+                    ></v-radio>
+                    <v-radio
+                      label="CDK7"
+                      value="CDK7"
+                      @change="checkQuestionOneAnswer('CDK7')"
+                      :disabled="selectedQ1Answer"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ1Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 1">
+                  <label
+                    >Which CDK4/6i has a higher affinity towards CDK4 over CDK?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ2Answer">
+                    <v-radio
+                      label="KISQALI"
+                      value="KISQALI"
+                      @change="checkQuestionTwoAnswer('KISQALI')"
+                      :disabled="selectedQ2Answer"
+                    ></v-radio>
+                    <v-radio
+                      label="Verzenio"
+                      value="Verzenio"
+                      @change="checkQuestionTwoAnswer('Verzenio')"
+                      :disabled="selectedQ2Answer"
+                    ></v-radio>
+                    <v-radio
+                      label="Ibrance"
+                      value="Ibrance"
+                      @change="checkQuestionTwoAnswer('Ibrance')"
+                      :disabled="selectedQ2Answer"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ2Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 2">
+                  <label
+                    >How many folds does Ribocicib (KISQALI) selects CDK4 over
+                    CDK6?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ3Answer">
+                    <v-radio
+                      label="8 folds"
+                      value="8 folds"
+                      @change="checkQuestionThreeAnswer('8 folds')"
+                    ></v-radio>
+                    <v-radio
+                      label="5 folds"
+                      value="5 folds"
+                      @change="checkQuestionThreeAnswer('5 folds')"
+                    ></v-radio>
+                    <v-radio
+                      label="3 folds"
+                      value="3 folds"
+                      @change="checkQuestionThreeAnswer('3 folds')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ3Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 3">
+                  <label
+                    >Which CDK4/6i showed consistent and statistically
+                    significant Overall Survival benefit across all three phase
+                    3 studies?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ4Answer">
+                    <v-radio
+                      label="KISQALI"
+                      value="KISQALI"
+                      @change="checkQuestionFourAnswer('KISQALI')"
+                    ></v-radio>
+                    <v-radio
+                      label="Verzenio"
+                      value="Verzenio"
+                      @change="checkQuestionFourAnswer('Verzenio')"
+                    ></v-radio>
+                    <v-radio
+                      label="Ibrance"
+                      value="Ibrance"
+                      @change="checkQuestionFourAnswer('Ibrance')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ4Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 4">
+                  <label
+                    >In which clinical trial did KISQALI show the longest median
+                    overall survival in 1st line metastatic breast cancer with
+                    Fulvestrant?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ5Answer">
+                    <v-radio
+                      label="MONALEESA-2"
+                      value="MONALEESA-2"
+                      @change="checkQuestionFiveAnswer('MONALEESA-2')"
+                    ></v-radio>
+                    <v-radio
+                      label="MONALEEZA-3"
+                      value="MONALEEZA-3"
+                      @change="checkQuestionFiveAnswer('MONALEEZA-3')"
+                    ></v-radio>
+                    <v-radio
+                      label="NATALEE"
+                      value="NATALEE"
+                      @change="checkQuestionFiveAnswer('NATALEE')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ5Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 5">
+                  <label
+                    >In MONALEESA-3 clinical trial, the longest median OS
+                    reported in advanced setting after >6 years follow up was?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ6Answer">
+                    <v-radio
+                      label="34 months"
+                      value="34 months"
+                      @change="checkQuestionSixAnswer('34 months')"
+                    ></v-radio>
+                    <v-radio
+                      label="67.6 Months"
+                      value="67.6 Months"
+                      @change="checkQuestionSixAnswer('67.6 Months')"
+                    ></v-radio>
+                    <v-radio
+                      label="54 moths"
+                      value="54 moths"
+                      @change="checkQuestionSixAnswer('54 moths')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ6Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 6">
+                  <label
+                    >In MONALEESA-3 clinical trial, the longest median OS
+                    reported in advanced setting after >6 years follow up was?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ7Answer">
+                    <v-radio
+                      label="KISQALI"
+                      value="KISQALI"
+                      @change="checkQuestionSevenAnswer('KISQALI')"
+                    ></v-radio>
+                    <v-radio
+                      label="Verzenio"
+                      value="Verzenio"
+                      @change="checkQuestionSevenAnswer('Verzenio')"
+                    ></v-radio>
+                    <v-radio
+                      label="Ibrance"
+                      value="Ibrance"
+                      @change="checkQuestionSevenAnswer('Ibrance')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ7Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 7">
+                  <label
+                    >Which CDK4/6i has proven non inferiority in terms of
+                    efficacy at lower dose with better toxicity profile ?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ8Answer">
+                    <v-radio
+                      label="KISQALI"
+                      value="KISQALI"
+                      @change="checkQuestionEightAnswer('KISQALI')"
+                    ></v-radio>
+                    <v-radio
+                      label="Verzenio"
+                      value="Verzenio"
+                      @change="checkQuestionEightAnswer('Verzenio')"
+                    ></v-radio>
+                    <v-radio
+                      label="Ibrance"
+                      value="Ibrance"
+                      @change="checkQuestionEightAnswer('Ibrance')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ8Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 8">
+                  <label
+                    >Which CDK4/6i is recommended as Category 1 in NCCN
+                    guidelines for showing OS benefit at 1L for Patients with
+                    HR+/HER2- mBC.?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ9Answer">
+                    <v-radio
+                      label="KISQALI"
+                      value="KISQALI"
+                      @change="checkQuestionNineAnswer('KISQALI')"
+                    ></v-radio>
+                    <v-radio
+                      label="Verzenio"
+                      value="Verzenio"
+                      @change="checkQuestionNineAnswer('Verzenio')"
+                    ></v-radio>
+                    <v-radio
+                      label="Ibrance"
+                      value="Ibrance"
+                      @change="checkQuestionNineAnswer('Ibrance')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ9Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 9">
+                  <label
+                    >KISQALI demonstrated significant OS throughout the 3 phase3
+                    trials regardless of the menopausal state, line of therapy,
+                    and the ET partner?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ10Answer">
+                    <v-radio
+                      label="True"
+                      value="True"
+                      @change="checkQuestionTenAnswer('True')"
+                    ></v-radio>
+                    <v-radio
+                      label="False"
+                      value="False"
+                      @change="checkQuestionTenAnswer('False')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ10Message }}</div>
+                  </v-col>
+                </v-col>
+                <v-col cols="12" v-if="currentIndex === 10">
+                  <label
+                    >In MAIC analysis of QOL in MONALEESA-2 vs MONARCH 3 RIB
+                    showed significant favor vs ABEMA for diarrhea, fatigue,
+                    appetite loss, and arm symptoms?
+                  </label>
+
+                  <v-radio-group v-model="selectedQ11Answer">
+                    <v-radio
+                      label="True"
+                      value="True"
+                      @change="checkQuestionElevenAnswer('True')"
+                    ></v-radio>
+                    <v-radio
+                      label="False"
+                      value="False"
+                      @change="checkQuestionElevenAnswer('False')"
+                    ></v-radio>
+                  </v-radio-group>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <div class="resultMessage">{{ resultQ11Message }}</div>
+                  </v-col>
+                </v-col>
+
+                <v-col cols="12" class="d-flex justify-end">
+                  <v-btn
+                    class="submitBtn"
+                    @click="nextQuestion()"
+                    v-if="!isFinished"
+                    >Next</v-btn
+                  >
+                </v-col>
+                <v-col cols="12" class="d-flex justify-center">
+                  <v-btn
+                    class="submitBtn"
+                    @click="storeScore()"
+                    v-if="isFinished"
+                    >Display Top Score</v-btn
+                  >
+                </v-col>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-form>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      formData: {
+        name: "",
+      },
+      currentIndex: 0,
+      selectedQ1Answer: null,
+      selectedQ2Answer: null,
+      selectedQ3Answer: null,
+      selectedQ4Answer: null,
+      selectedQ5Answer: null,
+      selectedQ6Answer: null,
+      selectedQ7Answer: null,
+      selectedQ8Answer: null,
+      selectedQ9Answer: null,
+      selectedQ10Answer: null,
+      selectedQ11Answer: null,
+      resultQ1Message: null,
+      resultQ2Message: null,
+      resultQ3Message: null,
+      resultQ4Message: null,
+      resultQ5Message: null,
+      resultQ6Message: null,
+      resultQ7Message: null,
+      resultQ8Message: null,
+      resultQ9Message: null,
+      resultQ10Message: null,
+      resultQ11Message: null,
+      answers: [],
+    };
+  },
+  computed: {
+    isFinished() {
+      return this.currentIndex === 11; // Assuming you have 11 questions
+    },
+  },
+  created() {},
+  watch: {},
+  methods: {
+    checkQuestionOneAnswer(selectedQ1Answer) {
+      if (selectedQ1Answer === "CDK4") {
+        this.resultQ1Message = "Your answer is correct!";
+        this.answers.push(selectedQ1Answer);
+        console.log("answers", this.answers);
+      } else {
+        this.resultQ1Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionTwoAnswer(selectedQ2Answer) {
+      if (selectedQ2Answer === "KISQALI") {
+        this.resultQ2Message = "Your answer is correct!";
+        this.answers.push(selectedQ2Answer);
+      } else {
+        this.resultQ2Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionThreeAnswer(selectedQ3Answer) {
+      if (selectedQ3Answer === "8 folds") {
+        this.resultQ3Message = "Your answer is correct!";
+        this.answers.push(selectedQ3Answer);
+      } else {
+        this.resultQ3Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionFourAnswer(selectedQ4Answer) {
+      if (selectedQ4Answer === "KISQALI") {
+        this.resultQ4Message = "Your answer is correct!";
+        this.answers.push(selectedQ4Answer);
+      } else {
+        this.resultQ4Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionFiveAnswer(selectedQ5Answer) {
+      if (selectedQ5Answer === "MONALEEZA-3") {
+        this.resultQ5Message = "Your answer is correct!";
+        this.answers.push(selectedQ5Answer);
+        console.log("answers", this.answers);
+      } else {
+        this.resultQ5Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionSixAnswer(selectedQ6Answer) {
+      if (selectedQ6Answer === "67.6 Months") {
+        this.resultQ6Message = "Your answer is correct!";
+        this.answers.push(selectedQ6Answer);
+      } else {
+        this.resultQ6Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionSevenAnswer(selectedQ7Answer) {
+      if (selectedQ7Answer === "KISQALI") {
+        this.resultQ7Message = "Your answer is correct!";
+        this.answers.push(selectedQ7Answer);
+      } else {
+        this.resultQ7Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionEightAnswer(selectedQ8Answer) {
+      if (selectedQ8Answer === "KISQALI") {
+        this.resultQ8Message = "Your answer is correct!";
+        this.answers.push(selectedQ8Answer);
+      } else {
+        this.resultQ8Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionNineAnswer(selectedQ9Answer) {
+      if (selectedQ9Answer === "KISQALI") {
+        this.resultQ9Message = "Your answer is correct!";
+        this.answers.push(selectedQ9Answer);
+      } else {
+        this.resultQ9Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionTenAnswer(selectedQ10Answer) {
+      if (selectedQ10Answer === "True") {
+        this.resultQ10Message = "Your answer is correct!";
+        this.answers.push(selectedQ10Answer);
+      } else {
+        this.resultQ10Message = "Sorry, you missed this point.";
+      }
+    },
+    checkQuestionElevenAnswer(selectedQ11Answer) {
+      if (selectedQ11Answer === "True") {
+        this.resultQ11Message = "Your answer is correct!";
+        this.answers.push(selectedQ11Answer);
+      } else {
+        this.resultQ11Message = "Sorry, you missed this point.";
+      }
+    },
+    nextQuestion() {
+      this.currentIndex++;
+      //   this.selectedAnswer = null;
+    },
+
+    async storeScore() {
+      try {
+        const data = {
+          score: this.answers.length,
+          name: localStorage.getItem("user_name"),
+        };
+        const response = await this.$axios.$post("/store-score", data);
+        console.log("API Response:", response);
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    },
+  },
+};
+</script>
+<style>
+.v-input--radio-group--column .v-input--radio-group__input {
+  flex-direction: unset;
+}
+.v-radio {
+  padding: 0px 30px;
+}
+.v-input--radio-group--column .v-radio:not(:last-child):not(:only-child) {
+  margin-bottom: 0px;
+}
+.loginlink {
+  color: #bf9021 !important;
+}
+.Message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #bf9021 !important;
+  font-weight: bold;
+  height: 100vh;
+}
+</style>

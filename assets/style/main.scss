@@ -288,15 +288,18 @@ footer {
   font-weight: 900;
 }
 
-//End questions
+//End questions\
+//start register
+
+// end register
 //start landingPage
-.landingPage {
-  background-image: url("@/assets/Photos/cute-heart-background.jpeg");
+.questionComponent {
+  // background-image: url("@/assets/Photos/web1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-  background-attachment: fixed;
-  background-position: bottom;
+}
+.topRank {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -313,14 +316,7 @@ footer {
 //ENd userID
 
 //start Header
-.image {
-  background-image: url("@/assets/Photos/worldheartWeb.jpg");
-  width: 100%;
-  height: 400px;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  position: relative;
-}
+
 .conOfHeader {
   position: absolute;
   top: 50%;
@@ -334,9 +330,17 @@ footer {
   background: linear-gradient(to right, rgb(101, 45, 145), rgb(0, 168, 158));
   border-radius: 1rem;
 }
+.image {
+  background-image: url("@/assets/Photos/web1.jpg");
+  width: 100%;
+  height: 280px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+}
 @media screen and (max-width: 600px) {
   .image {
-    background-image: url("@/assets/Photos/worldheartMob.jpg");
+    background-image: url("@/assets/Photos/web1.jpg");
     width: 100%;
     height: 400px;
     background-size: 100% 100%;
@@ -462,5 +466,10 @@ footer {
   font-size: 30px;
   font-weight: 600;
   color: red;
+  text-align: center;
+}
+.score {
+  font-size: 30px;
+  font-weight: 600;
   text-align: center;
 }

@@ -3,9 +3,7 @@
     <v-navigation-drawer v-model="drawer" app clipped left>
       <v-list>
         <v-list-item class="mx-auto">
-          <v-list-item-avatar>
-            <v-img :src="require('@/assets/Photos/logo.png')" />
-          </v-list-item-avatar>
+          <v-list-item-avatar> </v-list-item-avatar>
         </v-list-item>
         <v-list-item class="text-center">
           <v-list-item-content>

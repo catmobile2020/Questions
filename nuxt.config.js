@@ -6,8 +6,8 @@ export default {
   target: "static",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - world heart day",
-    title: "world heart day",
+    titleTemplate: "%s - Kisqali",
+    title: "Kisqali",
     htmlAttrs: {
       lang: "en",
     },
@@ -28,9 +28,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-      { src: "@/plugins/axios" },
-      // { src: '@/plugins/qrcode', mode: 'client'}
-    ],
+    { src: "@/plugins/axios" },
+    // { src: '@/plugins/qrcode', mode: 'client'}
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -50,8 +50,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
   ],
   axios: {
-    baseURL: "https://health-station.cat-sw.com/api/v1",
-    imgURL: "https://health-station.cat-sw.com/api/v1",
+    baseURL: "https://kisqali.cat-sw.com/api",
+    imgURL: "https://kisqali.cat-sw.com/api",
     // proxy: true
   },
 
