@@ -76,16 +76,19 @@
                       label="8 folds"
                       value="8 folds"
                       @change="checkQuestionThreeAnswer('8 folds')"
+                      :disabled="selectedQ3Answer"
                     ></v-radio>
                     <v-radio
                       label="5 folds"
                       value="5 folds"
                       @change="checkQuestionThreeAnswer('5 folds')"
+                      :disabled="selectedQ3Answer"
                     ></v-radio>
                     <v-radio
                       label="3 folds"
                       value="3 folds"
                       @change="checkQuestionThreeAnswer('3 folds')"
+                      :disabled="selectedQ3Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -104,16 +107,19 @@
                       label="KISQALI"
                       value="KISQALI"
                       @change="checkQuestionFourAnswer('KISQALI')"
+                      :disabled="selectedQ4Answer"
                     ></v-radio>
                     <v-radio
                       label="Verzenio"
                       value="Verzenio"
                       @change="checkQuestionFourAnswer('Verzenio')"
+                      :disabled="selectedQ4Answer"
                     ></v-radio>
                     <v-radio
                       label="Ibrance"
                       value="Ibrance"
                       @change="checkQuestionFourAnswer('Ibrance')"
+                      :disabled="selectedQ4Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -132,16 +138,19 @@
                       label="MONALEESA-2"
                       value="MONALEESA-2"
                       @change="checkQuestionFiveAnswer('MONALEESA-2')"
+                      :disabled="selectedQ5Answer"
                     ></v-radio>
                     <v-radio
                       label="MONALEEZA-3"
                       value="MONALEEZA-3"
                       @change="checkQuestionFiveAnswer('MONALEEZA-3')"
+                      :disabled="selectedQ5Answer"
                     ></v-radio>
                     <v-radio
                       label="NATALEE"
                       value="NATALEE"
                       @change="checkQuestionFiveAnswer('NATALEE')"
+                      :disabled="selectedQ5Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -159,16 +168,19 @@
                       label="34 months"
                       value="34 months"
                       @change="checkQuestionSixAnswer('34 months')"
+                      :disabled="selectedQ6Answer"
                     ></v-radio>
                     <v-radio
                       label="67.6 Months"
                       value="67.6 Months"
                       @change="checkQuestionSixAnswer('67.6 Months')"
+                      :disabled="selectedQ6Answer"
                     ></v-radio>
                     <v-radio
                       label="54 moths"
                       value="54 moths"
                       @change="checkQuestionSixAnswer('54 moths')"
+                      :disabled="selectedQ6Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -186,16 +198,19 @@
                       label="KISQALI"
                       value="KISQALI"
                       @change="checkQuestionSevenAnswer('KISQALI')"
+                      :disabled="selectedQ7Answer"
                     ></v-radio>
                     <v-radio
                       label="Verzenio"
                       value="Verzenio"
                       @change="checkQuestionSevenAnswer('Verzenio')"
+                      :disabled="selectedQ7Answer"
                     ></v-radio>
                     <v-radio
                       label="Ibrance"
                       value="Ibrance"
                       @change="checkQuestionSevenAnswer('Ibrance')"
+                      :disabled="selectedQ7Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -213,16 +228,19 @@
                       label="KISQALI"
                       value="KISQALI"
                       @change="checkQuestionEightAnswer('KISQALI')"
+                      :disabled="selectedQ8Answer"
                     ></v-radio>
                     <v-radio
                       label="Verzenio"
                       value="Verzenio"
                       @change="checkQuestionEightAnswer('Verzenio')"
+                      :disabled="selectedQ8Answer"
                     ></v-radio>
                     <v-radio
                       label="Ibrance"
                       value="Ibrance"
                       @change="checkQuestionEightAnswer('Ibrance')"
+                      :disabled="selectedQ8Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -241,16 +259,19 @@
                       label="KISQALI"
                       value="KISQALI"
                       @change="checkQuestionNineAnswer('KISQALI')"
+                      :disabled="selectedQ9Answer"
                     ></v-radio>
                     <v-radio
                       label="Verzenio"
                       value="Verzenio"
                       @change="checkQuestionNineAnswer('Verzenio')"
+                      :disabled="selectedQ9Answer"
                     ></v-radio>
                     <v-radio
                       label="Ibrance"
                       value="Ibrance"
                       @change="checkQuestionNineAnswer('Ibrance')"
+                      :disabled="selectedQ9Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -269,11 +290,13 @@
                       label="True"
                       value="True"
                       @change="checkQuestionTenAnswer('True')"
+                      :disabled="selectedQ10Answer"
                     ></v-radio>
                     <v-radio
                       label="False"
                       value="False"
                       @change="checkQuestionTenAnswer('False')"
+                      :disabled="selectedQ10Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
@@ -292,15 +315,25 @@
                       label="True"
                       value="True"
                       @change="checkQuestionElevenAnswer('True')"
+                      :disabled="selectedQ11Answer"
                     ></v-radio>
                     <v-radio
                       label="False"
                       value="False"
                       @change="checkQuestionElevenAnswer('False')"
+                      :disabled="selectedQ11Answer"
                     ></v-radio>
                   </v-radio-group>
                   <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ11Message }}</div>
+                    <div
+                      :class="
+                        resultQ11Message === 'Your answer is correct!'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ11Message }}
+                    </div>
                   </v-col>
                 </v-col>
 
@@ -373,7 +406,6 @@ export default {
       if (selectedQ1Answer === "CDK4") {
         this.resultQ1Message = "Your answer is correct!";
         this.answers.push(selectedQ1Answer);
-        console.log("answers", this.answers);
       } else {
         this.resultQ1Message = "Sorry, you missed this point.";
       }
@@ -406,7 +438,6 @@ export default {
       if (selectedQ5Answer === "MONALEEZA-3") {
         this.resultQ5Message = "Your answer is correct!";
         this.answers.push(selectedQ5Answer);
-        console.log("answers", this.answers);
       } else {
         this.resultQ5Message = "Sorry, you missed this point.";
       }
@@ -472,7 +503,6 @@ export default {
         };
         const response = await this.$axios.$post("/store-score", data);
         this.$router.push("/topRank");
-        console.log("API Response:", response);
       } catch (error) {
         console.error("API Error:", error);
       }
@@ -501,5 +531,8 @@ export default {
   color: #bf9021 !important;
   font-weight: bold;
   height: 100vh;
+}
+.resultMessage {
+  font-size: 30px;
 }
 </style>

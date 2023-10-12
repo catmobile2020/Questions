@@ -10,7 +10,7 @@
                   <v-text-field
                     v-model="registerForm.name"
                     outlined
-                    placeholder="Name"
+                    placeholder="Enter Your Name"
                     required
                     solo
                     hide-details="auto"
@@ -62,8 +62,6 @@ export default {
       if (name) {
         localStorage.setItem("user_name", name);
       } else {
-        this.errorSnackbar = true;
-        this.errorMessage = "Please enter your name.";
       }
       try {
         const data = {
