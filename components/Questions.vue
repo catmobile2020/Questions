@@ -32,8 +32,16 @@
                       :disabled="selectedQ1Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ1Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ1MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ1Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 1">
@@ -61,8 +69,16 @@
                       :disabled="selectedQ2Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ2Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ2MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ2Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 2">
@@ -91,8 +107,16 @@
                       :disabled="selectedQ3Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ3Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ3MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ3Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 3">
@@ -122,8 +146,16 @@
                       :disabled="selectedQ4Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ4Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ4MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ4Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 4">
@@ -153,8 +185,16 @@
                       :disabled="selectedQ5Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ5Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ5MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ5Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 5">
@@ -183,8 +223,16 @@
                       :disabled="selectedQ6Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ6Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ6MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ6Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 6">
@@ -213,8 +261,16 @@
                       :disabled="selectedQ7Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ7Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ7MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ7Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 7">
@@ -243,8 +299,16 @@
                       :disabled="selectedQ8Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ8Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ8MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ8Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 8">
@@ -274,8 +338,16 @@
                       :disabled="selectedQ9Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ9Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ9MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ9Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 9">
@@ -299,8 +371,16 @@
                       :disabled="selectedQ10Answer"
                     ></v-radio>
                   </v-radio-group>
-                  <v-col cols="12" class="d-flex justify-end">
-                    <div class="resultMessage">{{ resultQ10Message }}</div>
+                  <v-col cols="12" class="d-flex justify-center">
+                    <div
+                      :class="
+                        resultQ10MessageColor === 'green'
+                          ? 'success-message'
+                          : 'error-message'
+                      "
+                    >
+                      {{ resultQ10Message }}
+                    </div>
                   </v-col>
                 </v-col>
                 <v-col cols="12" v-if="currentIndex === 10">
@@ -327,7 +407,7 @@
                   <v-col cols="12" class="d-flex justify-end">
                     <div
                       :class="
-                        resultQ11Message === 'Your answer is correct!'
+                        resultQ11MessageColor === 'green'
                           ? 'success-message'
                           : 'error-message'
                       "
@@ -368,6 +448,17 @@ export default {
       formData: {
         name: "",
       },
+      resultQ1MessageColor: null,
+      resultQ2MessageColor: null,
+      resultQ3MessageColor: null,
+      resultQ4MessageColor: null,
+      resultQ5MessageColor: null,
+      resultQ6MessageColor: null,
+      resultQ7MessageColor: null,
+      resultQ8MessageColor: null,
+      resultQ9MessageColor: null,
+      resultQ10MessageColor: null,
+      resultQ11MessageColor: null,
       currentIndex: 0,
       selectedQ1Answer: null,
       selectedQ2Answer: null,
@@ -405,89 +496,119 @@ export default {
     checkQuestionOneAnswer(selectedQ1Answer) {
       if (selectedQ1Answer === "CDK4") {
         this.resultQ1Message = "Your answer is correct!";
+        this.resultQ1MessageColor = "green";
         this.answers.push(selectedQ1Answer);
       } else {
         this.resultQ1Message = "Sorry, you missed this point.";
+        this.resultQ11MessageColor = "red";
       }
     },
     checkQuestionTwoAnswer(selectedQ2Answer) {
       if (selectedQ2Answer === "KISQALI") {
         this.resultQ2Message = "Your answer is correct!";
+        this.resultQ2MessageColor = "green";
+
         this.answers.push(selectedQ2Answer);
       } else {
         this.resultQ2Message = "Sorry, you missed this point.";
+        this.resultQ2MessageColor = "red";
       }
     },
     checkQuestionThreeAnswer(selectedQ3Answer) {
       if (selectedQ3Answer === "8 folds") {
         this.resultQ3Message = "Your answer is correct!";
+        this.resultQ3MessageColor = "green";
+
         this.answers.push(selectedQ3Answer);
       } else {
         this.resultQ3Message = "Sorry, you missed this point.";
+        this.resultQ3MessageColor = "red";
       }
     },
     checkQuestionFourAnswer(selectedQ4Answer) {
       if (selectedQ4Answer === "KISQALI") {
         this.resultQ4Message = "Your answer is correct!";
+        this.resultQ4MessageColor = "green";
+
         this.answers.push(selectedQ4Answer);
       } else {
         this.resultQ4Message = "Sorry, you missed this point.";
+        this.resultQ4MessageColor = "red";
       }
     },
     checkQuestionFiveAnswer(selectedQ5Answer) {
       if (selectedQ5Answer === "MONALEEZA-3") {
         this.resultQ5Message = "Your answer is correct!";
+        this.resultQ5MessageColor = "green";
+
         this.answers.push(selectedQ5Answer);
       } else {
         this.resultQ5Message = "Sorry, you missed this point.";
+        this.resultQ5MessageColor = "red";
       }
     },
     checkQuestionSixAnswer(selectedQ6Answer) {
       if (selectedQ6Answer === "67.6 Months") {
         this.resultQ6Message = "Your answer is correct!";
+        this.resultQ6MessageColor = "green";
+
         this.answers.push(selectedQ6Answer);
       } else {
         this.resultQ6Message = "Sorry, you missed this point.";
+        this.resultQ6MessageColor = "red";
       }
     },
     checkQuestionSevenAnswer(selectedQ7Answer) {
       if (selectedQ7Answer === "KISQALI") {
         this.resultQ7Message = "Your answer is correct!";
+        this.resultQ7MessageColor = "green";
+
         this.answers.push(selectedQ7Answer);
       } else {
         this.resultQ7Message = "Sorry, you missed this point.";
+        this.resultQ7MessageColor = "red";
       }
     },
     checkQuestionEightAnswer(selectedQ8Answer) {
       if (selectedQ8Answer === "KISQALI") {
         this.resultQ8Message = "Your answer is correct!";
+        this.resultQ8MessageColor = "green";
+
         this.answers.push(selectedQ8Answer);
       } else {
         this.resultQ8Message = "Sorry, you missed this point.";
+        this.resultQ8MessageColor = "red";
       }
     },
     checkQuestionNineAnswer(selectedQ9Answer) {
       if (selectedQ9Answer === "KISQALI") {
         this.resultQ9Message = "Your answer is correct!";
+        this.resultQ9MessageColor = "green";
+
         this.answers.push(selectedQ9Answer);
       } else {
         this.resultQ9Message = "Sorry, you missed this point.";
+        this.resultQ9MessageColor = "red";
       }
     },
     checkQuestionTenAnswer(selectedQ10Answer) {
       if (selectedQ10Answer === "True") {
         this.resultQ10Message = "Your answer is correct!";
         this.answers.push(selectedQ10Answer);
+        this.resultQ10MessageColor = "green";
       } else {
         this.resultQ10Message = "Sorry, you missed this point.";
+        this.resultQ10MessageColor = "red";
       }
     },
     checkQuestionElevenAnswer(selectedQ11Answer) {
       if (selectedQ11Answer === "True") {
         this.resultQ11Message = "Your answer is correct!";
+        this.resultQ11MessageColor = "green";
         this.answers.push(selectedQ11Answer);
       } else {
         this.resultQ11Message = "Sorry, you missed this point.";
+        this.resultQ11MessageColor = "red";
       }
     },
     nextQuestion() {
@@ -502,8 +623,6 @@ export default {
           name: localStorage.getItem("user_name"),
         };
         const response = await this.$axios.$post("/store-score", data);
-
-        // Navigate to the "topRank" page with the score as a parameter
         this.$router.push({
           name: "topRank",
           params: { score: this.answers.length },
@@ -539,5 +658,14 @@ export default {
 }
 .resultMessage {
   font-size: 30px;
+}
+.success-message {
+  color: green;
+  font-size: 20px;
+  text-align: center;
+}
+.error-message {
+  color: red;
+  font-size: 20px;
 }
 </style>

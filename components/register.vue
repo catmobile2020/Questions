@@ -18,7 +18,9 @@
                 </v-col>
 
                 <v-col cols="12" md="12" class="d-flex justify-center">
-                  <v-btn class="submitBtn" @click="saveName()"> Start </v-btn>
+                  <v-btn class="submitBtn" @click="saveName()">
+                    Let's Go !
+                  </v-btn>
                 </v-col>
               </v-col>
             </v-row>

@@ -9,17 +9,16 @@
           <h3>Top Score</h3>
         </v-col>
         <v-col cols="12">
-          <v-data-table
-            :items="userData"
-            :headers="tableHeaders"
-            :hide-default-footer="true"
-            class="elevation-1"
-          >
-            <template v-slot:items="props">
-              <td>{{ props.item.name }}</td>
-              <td>{{ props.item.score }}</td>
+          <v-simple-table>
+            <template v-slot:default>
+              <tbody>
+                <tr v-for="(item, index) in userData" :key="index">
+                  <td class="specificationName">{{ item.name }}</td>
+                  <td class="specificationValue">{{ item.score }}</td>
+                </tr>
+              </tbody>
             </template>
-          </v-data-table>
+          </v-simple-table>
         </v-col>
       </v-row>
     </v-container>
