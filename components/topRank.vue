@@ -2,8 +2,11 @@
   <div class="topRank">
     <v-container>
       <v-row>
-        <v-col>
-          <p>Yor Score: {{ score }}</p>
+        <v-col class="d-flex justify-center">
+          <h2 v-if="rank !== null">
+            Your Rank:
+            <span class="rank">{{ rank }}</span>
+          </h2>
         </v-col>
         <v-col cols="12">
           <h3>Top Score</h3>
@@ -28,7 +31,9 @@
 export default {
   data() {
     return {
-      userData: [],
+      userData: "",
+      rank: null,
+      userRank: [],
       tableHeaders: [
         { text: "Name", value: "name" },
         { text: "Score", value: "score" },
@@ -37,10 +42,10 @@ export default {
   },
   created() {
     this.getData();
+    this.rank = this.$route.query.rank;
   },
   computed: {
     score() {
-      // Access the score from the route parameter
       return this.$route.params.score;
     },
   },
@@ -57,4 +62,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.rank {
+  color: Red;
+  font-size: 25px;
+}
+</style>

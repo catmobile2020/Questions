@@ -623,9 +623,11 @@ export default {
           name: localStorage.getItem("user_name"),
         };
         const response = await this.$axios.$post("/store-score", data);
+        const rank = response.rank;
+
         this.$router.push({
           name: "topRank",
-          params: { score: this.answers.length },
+          query: { score: this.answers.length, rank: rank },
         });
       } catch (error) {
         console.error("API Error:", error);
