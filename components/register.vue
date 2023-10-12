@@ -18,9 +18,7 @@
                 </v-col>
 
                 <v-col cols="12" md="12" class="d-flex justify-center">
-                  <v-btn class="submitBtn" @click="saveName()">
-                    Click for the survey
-                  </v-btn>
+                  <v-btn class="submitBtn" @click="saveName()"> Start </v-btn>
                 </v-col>
               </v-col>
             </v-row>
@@ -52,20 +50,33 @@ export default {
       Me: {},
       registerForm: {
         name: "",
+        register: 1,
       },
     };
   },
   components: {},
   created() {},
   methods: {
-    saveName() {
+    async saveName() {
       const name = this.registerForm.name;
       if (name) {
         localStorage.setItem("user_name", name);
-        this.$router.push("/Questions");
       } else {
         this.errorSnackbar = true;
         this.errorMessage = "Please enter your name.";
+      }
+      try {
+        const data = {
+          register: this.registerForm.register,
+          name: localStorage.getItem("user_name"),
+        };
+        const response = await this.$axios.$post("/store-score", data);
+        console.log("API Response:", response);
+        this.$router.push("/Questions");
+      } catch (error) {
+        const errorData = error.data.error.name;
+        this.errorSnackbar = true;
+        this.errorMessage = errorData;
       }
     },
   },

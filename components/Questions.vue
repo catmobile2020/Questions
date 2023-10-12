@@ -471,6 +471,7 @@ export default {
           name: localStorage.getItem("user_name"),
         };
         const response = await this.$axios.$post("/store-score", data);
+        this.$router.push("/topRank");
         console.log("API Response:", response);
       } catch (error) {
         console.error("API Error:", error);
