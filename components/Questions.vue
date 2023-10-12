@@ -502,7 +502,12 @@ export default {
           name: localStorage.getItem("user_name"),
         };
         const response = await this.$axios.$post("/store-score", data);
-        this.$router.push("/topRank");
+
+        // Navigate to the "topRank" page with the score as a parameter
+        this.$router.push({
+          name: "topRank",
+          params: { score: this.answers.length },
+        });
       } catch (error) {
         console.error("API Error:", error);
       }

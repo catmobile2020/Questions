@@ -2,6 +2,9 @@
   <div class="topRank">
     <v-container>
       <v-row>
+        <v-col>
+          <p>Yor Score: {{ score }}</p>
+        </v-col>
         <v-col cols="12">
           <h3>Top Score</h3>
         </v-col>
@@ -36,13 +39,17 @@ export default {
   created() {
     this.getData();
   },
-
+  computed: {
+    score() {
+      // Access the score from the route parameter
+      return this.$route.params.score;
+    },
+  },
   methods: {
     async getData() {
       try {
         const data = await this.$axios.$get(`/top-rank`);
-
-        this.userData = data.data; // Assuming each object in userData has 'name' and 'score' properties.
+        this.userData = data.data;
         console.error("userData:", this.userData);
       } catch (error) {
         console.error("API Error:", error);
