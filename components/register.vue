@@ -10,7 +10,7 @@
                   <v-text-field
                     v-model="registerForm.name"
                     outlined
-                    placeholder="Enter Your Name"
+                    placeholder="Enter Your Nickname"
                     required
                     solo
                     hide-details="auto"
@@ -18,7 +18,7 @@
                 </v-col>
 
                 <v-col cols="12" md="12" class="d-flex justify-center">
-                  <v-btn class="submitBtn" @click="saveName()">
+                  <v-btn class="submitBtn orange-btn-color" @click="saveName()">
                     Let's Go !
                   </v-btn>
                 </v-col>

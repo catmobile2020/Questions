@@ -6,8 +6,8 @@ export default {
   target: "static",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - Kisqali",
-    title: "Kisqali",
+    titleTemplate: "%s - CDK4/6i Surfers",
+    title: "CDK4/6i Surfers",
     htmlAttrs: {
       lang: "en",
     },

@@ -6,8 +6,8 @@
           <v-container>
             <v-row class="d-flex justify-center">
               <v-col cols="12" md="8" class="questionForm">
-                <v-col cols="12" class="score"
-                  >Your Score {{ answers.length }}</v-col
+                <v-col cols="12" class="score orange-color"
+                  >Your Score {{ answers.length }} / 11</v-col
                 >
                 <v-col cols="12" v-if="currentIndex === 0">
                   <label>Which CDK is more targeting breast cancer?</label>
@@ -419,7 +419,7 @@
 
                 <v-col cols="12" class="d-flex justify-end">
                   <v-btn
-                    class="submitBtn"
+                    class="submitBtn orange-btn-color"
                     @click="nextQuestion()"
                     v-if="!isFinished"
                     >Next</v-btn
@@ -427,7 +427,7 @@
                 </v-col>
                 <v-col cols="12" class="d-flex justify-center">
                   <v-btn
-                    class="submitBtn"
+                    class="submitBtn orange-btn-color"
                     @click="storeScore()"
                     v-if="isFinished"
                     >Display Top Score</v-btn
@@ -622,6 +622,7 @@ export default {
           score: this.answers.length,
           name: localStorage.getItem("user_name"),
         };
+        localStorage.setItem("score", this.answers.length);
         const response = await this.$axios.$post("/store-score", data);
         const rank = response.rank;
 
