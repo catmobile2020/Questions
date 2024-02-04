@@ -1,7 +1,11 @@
 <template>
   <div class="Header">
-    <section class="">
-      <Header />
+    <section class="image">
+      <img
+        class=""
+        width="300"
+        src="@/assets/Photos/Leqvio-logo_GenericOnly_4C_Rball.png"
+      />
     </section>
     <section class="">
       <Questions />
@@ -10,11 +14,9 @@
 </template>
 <script>
 import Questions from "../components/Questions.vue";
-import Header from "../components/Header.vue";
 export default {
   components: {
     Questions,
-    Header,
   },
 };
 </script>
