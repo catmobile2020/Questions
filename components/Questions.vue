@@ -112,13 +112,14 @@ export default {
         };
 
         const response = await this.$axios.$post("/upload_answers", data);
+        this.countdown = 0;
         console.log("API Response:", response);
       } catch (error) {
         const errorData = error.data.error.name;
         this.errorSnackbar = true;
         this.errorMessage = errorData;
       }
-      this.countdown = 0;
+
       console.log(" data :", this.userResponses);
     },
     async getQuestionsData() {
