@@ -10,7 +10,7 @@
                   <v-text-field
                     v-model="registerForm.name"
                     outlined
-                    placeholder="Enter Your Nickname"
+                    placeholder="Enter your full Name"
                     required
                     solo
                     hide-details="auto"
@@ -70,6 +70,8 @@ export default {
         this.userId = response.user_id;
         console.log("API Response:", response);
         localStorage.setItem("user_id", this.userId);
+        sessionStorage.setItem("registration_completed", true); // Set the flag in sessionStorage
+
         this.$router.push("/Questions");
       } catch (error) {
         const errorData = error.data.errors.name;
