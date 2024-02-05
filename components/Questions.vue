@@ -14,21 +14,22 @@
             </v-row>
             <v-row
               class="d-flex justify-center align-center"
-              v-if="currentQuestionIndex < questions.length"
+              v-if="currentQuestionIndex < questionsData.length"
             >
               <v-col cols="12" md="6">
                 <div>
-                  <p>{{ questions[currentQuestionIndex].text }}</p>
+                  <p>{{ questionsData[currentQuestionIndex].title }}</p>
                   <v-radio-group
                     v-model="selectedAnswer"
                     @change="handleAnswerChange"
                   >
                     <v-radio
-                      v-for="(answer, index) in questions[currentQuestionIndex]
-                        .answers"
-                      :key="index"
-                      :label="answer"
-                      :value="answer"
+                      v-for="(choice, key) in questionsData[
+                        currentQuestionIndex
+                      ].answers"
+                      :key="key"
+                      :label="choice"
+                      :value="key"
                     ></v-radio>
                   </v-radio-group>
                 </div>
@@ -57,34 +58,19 @@
 export default {
   data() {
     return {
-      questions: [
-        {
-          id: 1,
-          text: "Question 1?",
-          answers: ["Option 1", "Option 2", "Option 3"],
-        },
-        {
-          id: 2,
-          text: "Question 2?",
-          answers: ["Option 1", "Option 2", "Option 3"],
-        },
-        {
-          id: 3,
-          text: "Question 3?",
-          answers: ["Option 1", "Option 2", "Option 3"],
-        },
-      ],
       currentQuestionIndex: 0,
       selectedAnswer: null,
       countdown: 30,
       timer: null,
       userResponses: [],
+      questionsData: [],
     };
   },
   computed: {},
   created() {
-    // Start the timer for the first question
     this.startTimer();
+    this.getQuestionsData();
+    const user_id = localStorage.getItem("user_id");
   },
   watch: {},
   methods: {
@@ -97,53 +83,53 @@ export default {
         }
       }, 1000);
     },
-    handleAnswerChange() {
-      // Do nothing here, let the countdown continue
-    },
+    handleAnswerChange() {},
     submitAnswer() {
-      // Store user response for the current question
       const response = {
-        question_id: this.questions[this.currentQuestionIndex].id,
-        answer: this.selectedAnswer,
-        time: 30 - this.countdown, // Time taken to answer
+        question_id: this.questionsData[this.currentQuestionIndex].id,
+        user_answer: this.selectedAnswer,
+        time_taken: 30 - this.countdown,
       };
       this.userResponses.push(response);
-
-      // Move to the next question and reset the countdown
       this.currentQuestionIndex++;
       this.selectedAnswer = null;
       this.countdown = 30;
-
-      // Check if there are more questions
-      if (this.currentQuestionIndex < this.questions.length) {
+      if (this.currentQuestionIndex < this.questionsData.length) {
         clearInterval(this.timer);
         this.startTimer();
       } else {
         clearInterval(this.timer);
-        // Send userResponses array to the endpoint
         this.sendDataToEndpoint();
       }
     },
-    sendDataToEndpoint() {
-      // Replace this with your actual API endpoint and method (e.g., using axios)
-      // Example using axios:
-      // axios.post('your_api_endpoint', this.userResponses)
+    async sendDataToEndpoint() {
+      try {
+        const user_id = localStorage.getItem("user_id");
+
+        const data = {
+          user_id: user_id,
+          answers: this.userResponses,
+        };
+
+        const response = await this.$axios.$post("/upload_answers", data);
+        console.log("API Response:", response);
+      } catch (error) {
+        const errorData = error.data.error.name;
+        this.errorSnackbar = true;
+        this.errorMessage = errorData;
+      }
+      this.countdown = 0;
       console.log(" data :", this.userResponses);
+    },
+    async getQuestionsData() {
+      const data = await this.$axios.$get("/questions");
+      this.questionsData = data.questions;
     },
   },
 };
 </script>
 
 <style>
-.v-input--radio-group--column .v-input--radio-group__input {
-  flex-direction: unset;
-}
-.v-radio {
-  padding: 0px 30px;
-}
-.v-input--radio-group--column .v-radio:not(:last-child):not(:only-child) {
-  margin-bottom: 0px;
-}
 .loginlink {
   color: #bf9021 !important;
 }

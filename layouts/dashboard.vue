@@ -8,7 +8,7 @@
         <v-list-item class="text-center">
           <v-list-item-content>
             <v-list-item-title class="text-h6 text-center">
-              World Heart Day
+              Questions
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>

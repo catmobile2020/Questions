@@ -50,8 +50,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
   ],
   axios: {
-    baseURL: "https://kisqali.cat-sw.com/api",
-    imgURL: "https://kisqali.cat-sw.com/api",
+    baseURL: "https://leqvio-be.cat-sw.com/api",
+    imgURL: "https://leqvio-be.cat-sw.com/api",
     // proxy: true
   },
 

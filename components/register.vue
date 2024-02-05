@@ -52,8 +52,8 @@ export default {
       Me: {},
       registerForm: {
         name: "",
-        register: 1,
       },
+      userId: null,
     };
   },
   components: {},
@@ -61,20 +61,18 @@ export default {
   methods: {
     async saveName() {
       const name = this.registerForm.name;
-      if (name) {
-        localStorage.setItem("user_name", name);
-      } else {
-      }
+
       try {
         const data = {
-          register: this.registerForm.register,
-          name: localStorage.getItem("user_name"),
+          name: this.registerForm.name,
         };
-        const response = await this.$axios.$post("/store-score", data);
+        const response = await this.$axios.$post("/user", data);
+        this.userId = response.user_id;
         console.log("API Response:", response);
+        localStorage.setItem("user_id", this.userId);
         this.$router.push("/Questions");
       } catch (error) {
-        const errorData = error.data.error.name;
+        const errorData = error.data.errors.name;
         this.errorSnackbar = true;
         this.errorMessage = errorData;
       }
