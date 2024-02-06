@@ -18,9 +18,9 @@
                 </v-col>
                 <v-col>
                   <p class="d-flex justify-center align-center">
-                    <span class="Time"> Question  </span>
+                    <span class="Time"> Question &nbsp; </span>
                     <span class="counter">
-                      {{ currentQuestionIndex + 1 }}+ / +{questionsData.length}</span
+                      {{ currentQuestionIndex + 1 }}+ / +{{questionsData.length}}</span
                     >
                   </p>
                 </v-col>
