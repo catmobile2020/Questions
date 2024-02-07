@@ -89,8 +89,6 @@ export default {
       // Redirect to register page
       this.$router.push("/");
     } else {
-      this.startTimer();
-      this.getQuestionsData();
       window.addEventListener("beforeunload", this.handleBeforeUnload);
     }
   },
