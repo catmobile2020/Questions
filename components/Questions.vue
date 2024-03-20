@@ -7,13 +7,13 @@
             <v-row> </v-row>
             <v-row
               class="d-flex justify-center align-center flex-column"
-              v-if="currentQuestionIndex < questionsData.length && countdown >= 1 && !loading"
+              v-if="currentQuestionIndex < questionsData.length"
             >
               <v-col class="d-flex">
                 <v-col>
                   <p class="d-flex justify-center align-center">
                     <span class="Time"> Time remaining : </span>
-                    <span class="counter"> {{ countdownTimer }}</span>
+                    <span class="counter">{{ countdown }}</span>
                   </p>
                 </v-col>
                 <v-col>
@@ -51,11 +51,6 @@
                 </div>
               </v-col>
             </v-row>
-            <v-row class="d-flex justify-center" v-else-if="countdown >= 1 && loading">
-              <div class="Message">
-                <p class="success-message">Please wait!</p>
-              </div>
-            </v-row>
             <v-row class="d-flex justify-center" v-else>
               <div class="Message">
                 <p class="success-message">Quiz Completed!</p>
@@ -74,27 +69,13 @@ export default {
     return {
       currentQuestionIndex: 0,
       selectedAnswer: null,
-      countdown: 35 * 60,
+      countdown: 40,
       timer: null,
-      loading : false,
       userResponses: [],
       questionsData: [],
     };
   },
-  computed: {
-    countdownTimer () {
-      this.countdown--
-      if (this.countdown >= 60) {
-        let min = this.countdown / 60
-        let sec = this.countdown % 60
-        return `${min.toFixed(0)} : ${sec}` 
-      } else if (this.countdown < 60 && this.countdown >= 0) {
-        return ` 00 : ${this.countdown}` 
-      } else {
-        return ` 00 : 0` 
-      }
-    }
-  },
+  computed: {},
   created() {
     this.startTimer();
     this.getQuestionsData();
@@ -146,14 +127,19 @@ export default {
       const response = {
         question_id: this.questionsData[this.currentQuestionIndex].id,
         user_answer: this.selectedAnswer,
-        time_taken: 35 * 60 - this.countdown,
+        time_taken: 40 - this.countdown,
       };
       this.userResponses.push(response);
       this.currentQuestionIndex++;
       this.selectedAnswer = null;
-      if (this.countdown === 0 || this.currentQuestionIndex >= this.questionsData.length) {
+      this.countdown = 40;
+      if (this.currentQuestionIndex < this.questionsData.length) {
+        clearInterval(this.timer);
+        this.startTimer();
+      } else {
+        clearInterval(this.timer);
         this.sendDataToEndpoint();
-      } 
+      }
     },
     async sendDataToEndpoint() {
       try {
@@ -179,13 +165,8 @@ export default {
       console.log(" data :", this.userResponses);
     },
     async getQuestionsData() {
-      this.loading = true
-      try {
-        const data = await this.$axios.$get("/questions");
-        this.questionsData = data.questions;
-      } catch (err) {} finally {
-        this.loading = false
-      }
+      const data = await this.$axios.$get("/questions");
+      this.questionsData = data.questions;
     },
   },
 };
@@ -204,8 +185,6 @@ export default {
   font-size: 22px;
   color: red !important;
   font-weight: bold;
-  margin-inline-start: 8px;
-  display: inline-block;
 }
 .Message {
   font-size: 30px;
