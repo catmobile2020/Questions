@@ -51,7 +51,7 @@
                 </div>
               </v-col>
             </v-row>
-            <v-row class="d-flex justify-center" v-else-if="countdown >= 1">
+            <v-row class="d-flex justify-center" v-else-if="countdown >= 1 && loading">
               <div class="Message">
                 <p class="success-message">Please wait!</p>
               </div>
@@ -151,7 +151,7 @@ export default {
       this.userResponses.push(response);
       this.currentQuestionIndex++;
       this.selectedAnswer = null;
-      if (this.countdown === 0) {
+      if (this.countdown === 0 || this.currentQuestionIndex >= this.questionsData.length) {
         this.sendDataToEndpoint();
       } 
     },
