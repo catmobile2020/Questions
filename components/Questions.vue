@@ -74,7 +74,7 @@ export default {
     return {
       currentQuestionIndex: 0,
       selectedAnswer: null,
-      countdown: 34 * 60,
+      countdown: 35 * 60,
       timer: null,
       loading : false,
       userResponses: [],
@@ -82,16 +82,16 @@ export default {
     };
   },
   computed: {
-    countdownTimer () {
-      this.countdown--
-      if (this.countdown >= 60) {
-        let min = this.countdown / 60
-        let sec = this.countdown % 60
-        return `${min.toFixed(0)} : ${sec}` 
-      } else if (this.countdown < 60 && this.countdown >= 0) {
-        return ` 00 : ${this.countdown}` 
+    countdownTimer() {
+      let countdown = this.countdown;
+      if (countdown >= 60) {
+        let min = Math.floor(countdown / 60); // Calculate minutes
+        let sec = countdown % 60; // Calculate remaining seconds
+        return `${min} : ${sec.toString().padStart(2, '0')}`; // Ensure seconds are always two digits with leading zeros if necessary
+      } else if (countdown < 60 && countdown >= 0) {
+        return `00 : ${countdown.toString().padStart(2, '0')}`; // Format seconds with leading zeros
       } else {
-        return ` 00 : 0` 
+        return '00 : 00'; // Default value if countdown is negative
       }
     }
   },
@@ -146,7 +146,7 @@ export default {
       const response = {
         question_id: this.questionsData[this.currentQuestionIndex].id,
         user_answer: this.selectedAnswer,
-        time_taken: 34 * 60 - this.countdown,
+        time_taken: 35 * 60 - this.countdown,
       };
       this.userResponses.push(response);
       this.currentQuestionIndex++;
