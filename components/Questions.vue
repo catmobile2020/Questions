@@ -74,7 +74,7 @@ export default {
     return {
       currentQuestionIndex: 0,
       selectedAnswer: null,
-      countdown: 35 * 60,
+      countdown: 40 * 60,
       timer: null,
       loading : false,
       userResponses: [],
