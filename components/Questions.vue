@@ -74,7 +74,7 @@ export default {
     return {
       currentQuestionIndex: 0,
       selectedAnswer: null,
-      countdown: 35 * 60,
+      countdown: 40 * 60,
       timer: null,
       loading : false,
       userResponses: [],
@@ -146,7 +146,7 @@ export default {
       const response = {
         question_id: this.questionsData[this.currentQuestionIndex].id,
         user_answer: this.selectedAnswer,
-        time_taken: 35 * 60 - this.countdown,
+        time_taken: 40 * 60 - this.countdown,
       };
       this.userResponses.push(response);
       this.currentQuestionIndex++;
