@@ -146,7 +146,7 @@ export default {
       const response = {
         question_id: this.questionsData[this.currentQuestionIndex].id,
         user_answer: this.selectedAnswer,
-        time_taken: 40 * 60 - this.countdown,
+        time_taken: 30 * 60 - this.countdown,
       };
       this.userResponses.push(response);
       this.currentQuestionIndex++;
